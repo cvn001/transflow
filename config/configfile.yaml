@@ -1,0 +1,101 @@
+## RUN PARAMS
+
+# MANDATORY PARAMS
+
+# path to FASTA file of reference genome
+genome_file: /home/lxc/development/transmission-cwmda/resources/reference/MTB_pangenome_consensus.fasta
+
+# path to BED file of reference genome gaps
+genomegaps_file: /home/lxc/development/transmission-cwmda/resources/reference/MTB_pangenome_genome_gaps.bed
+
+# path to Text file including all samples information. One sample per line.
+# The line should start with the "sample" column and contain at least a "date" column.
+# For transmission network reconstruction, both "longitude" and "latitude" columns could be used.
+metadata_file: samples.txt
+
+# PARAMS WITH DEFAULT VALUES
+
+# path to directory with fastq files
+# default 'fastq' in working directory
+# fastqdir: /path/to/fastq/
+fastqdir: fastq
+
+# fastq files are assumed to be of the format sample_1.fastq.gz
+# use "fastqpostfix" for different file name formats 
+# e.g. for the format sample_R1.fastq.gz put 
+# fastqpostfix: R
+
+# threads used by tools for each sample
+sample_threads: 2
+
+## Filter params
+# minimum allele frequency to be considered 'homozygous' variant call
+# default = 0.75
+allele_frequency_threshold: 0.75
+
+# minimum mapping quality for reads to be used for variant calling
+# default = 10
+mapping_quality_threshold: 10
+
+# minimum GATK depth (DP) value to be considered valid variant call
+# default = 10
+depth_threshold: 10
+
+## Tool params
+# minimum overlap of paired end reads for merging
+# default = 10
+flash_overlap: 10
+
+# minimum length of reads to be kept with trimmomatic
+# default = 50
+trimmomatic_read_minimum_length: 50
+
+# quality for sliding window trimmomatic trimming
+# default = 15
+#trimmomatic_qual_slidingwindow: 
+
+# kraken v1 reference database.
+# MiniKraken DB is suggested (https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz).
+kraken_db: /lvdata/lxc/work/Kraken/minikraken_20171019_8GB
+# cutoff for MTBC sequences percentage.
+kraken_cutoff: 80
+
+# use "trimmomatic_adapter_file" to change adapter file
+# default set to NexteraPE-PE adapters
+# trimmomatic_adapter_file:
+
+# output files prefix
+output_prefix: "MTB_samples"
+
+# transmission clustering method. Both [SNP] and [trans] methods are supported.
+# default = trans
+method: SNP
+
+# parameters for SNP-based clustering: check transmission validity.
+# agglomerative single-linkage clustering is valid based on similarity but not in the context of epidemiological transmission analysis
+# if check_transmission_validity is true, merging of distant samples by a "proxy" sample is detected and excluded.
+# clustering is repeated without those "proxy" samples until no such samples are detected any more.
+# default = False
+check_transmission_validity: True
+
+# parameters for SNP-based clustering: SNP threshold
+# default = 12
+snp_threshold: 12
+
+# transmission threshold is the threshold under which the estimated number of intermediate transmissions must be in order for two cases to be defined as clustered.
+# default = 15
+transmission_threshold: 15
+
+# clock rate. 
+# default = 1.0 SNPs/genome/year
+clock_rate: 1.0
+
+# transmission rate is the rate at which the estimated number of intermediate transmissions must be.
+# default = 2.0
+transmission_rate: 2.0
+
+# using coordinate to reconstruct transmission network.
+coordinate: True
+
+# epidemiological characteristics
+characteristics: age gender group

@@ -1,0 +1,349 @@
+---
+params:
+  kraken: "kraken.result"
+  kraken_cutoff: 90
+  multiqc: "MultiQC_report.html"
+  mapping_quality: 20
+  allele_frequency: 0.75
+  mapping_depth: 10
+  snp_diff_matrix: "pairwise_distance_matrix.txt"
+  snp_diff_heatmap: "pairwise_distance_heatmap.png"
+  snp_diff_histogram: "pairwise_distance_distribution.png"
+  clustering_visualization: "clustering_visualization.png"
+  cluster_member_visualization: "cluster_member_visualization.png"
+  cluster_table: "transmission_clusters.txt"
+  cluster_method: 'trans'
+  trans_cutoff: 15
+  snp_cutoff: 12
+  trans_beta: 2.0
+  show_network: FALSE
+  network_image: "transmission_network.png"
+  show_risk: FALSE
+  risk_file: "characteristic_data.txt"
+
+title: "<center>MTB Transmission Analysis</center>"
+
+date: "<center>Date of Report: `r format(Sys.time(), '%Y/%m/%d')`<center>"
+
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+    toc_depth: 3
+    theme: cerulean
+    highlight: tango
+    body_placement: left 
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+---
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+library(DT)
+library(ggplot2)
+library(kableExtra)
+library(data.table)
+library(gtsummary)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+if (cluster_method %in% c("SNP", "snp")) {
+  show.snp <- TRUE # nolint
+  show.trans <- FALSE # nolint
+} else {
+  show.snp <- FALSE # nolint
+  show.trans <- TRUE # nolint
+}
+
+if (show_risk) {
+  risk_show <- TRUE
+} else {
+  risk_show <- FALSE
+}
+
+if (show_network) {
+  network_show <- TRUE
+} else {
+  network_show <- FALSE
+}
+```
+
+```{r global_options, include=FALSE}
+library(knitr)
+knit_engines$set(asis = function(options) {
+  if (options$echo && options$eval) knit_child(text = options$code)
+})
+```
+
+# Introduction
+
+Tuberculosis (TB) is an infectious disease usually caused by *Mycobacterium tuberculosis* complex (MTBC) bacteria, and still is a threat to global health. It is essential to detect and interrupt transmissions to stop the spread of this infectious disease. The main goal of molecular surveillance is the identification of patient-patient transmission and cluster detection. Whole genome sequencing (WGS) is an exciting experimental technique that have become an integral complement to epidemiological investigation of tuberculosis outbreaks. Importantly WGS is also a superior tool to delineate transmission clusters and can be used to estimate the burden of transmission.
+
+This analysis would answer questions such as:
+
+- How far is the distance between each two genomes?
+- Is there any TB case potentially linked by direct transmission?
+- Who infected whom during an outbreak?
+- Is there any risk factors associated with transmission?
+
+# Methods and Results
+
+## Quality control
+
+For quality control the pipeline uses the programs FastQC and MultiQC.
+
+### FastQC
+
+FastQC generates a quality report for each FASTQ file, containing information such as the per base and average sequence quality (using the Phred quality score), overrepresented sequences, GC content, adapter and the k-mer content of the FASTQ file.
+
+### MultiQC
+
+MultiQC aggregates the FastQC reports for a given set of FASTQ files into a single report, allowing reviews of all FASTQ files at once.
+
+[Reads QC report](../../1.Quality_control/Sequence_QC/MultiQC_report.html)
+
+**Result files**: [1.Quality_control/Sequence_QC](../../1.Quality_control/Sequence_QC) <br>
+
+## MTBC filtering
+
+To filter out samples that may have been contaminated by foreign DNA during sample preparation, the reads for each sample are inspected through Kraken software against the MiniKraken database containing complete bacterial, archaeal, and viral genomes and the GRCh38 human genome from the Refseq database. Any sample will be dropped if less than ``r paste0(params$kraken_cutoff, "%")`` of its reads were taxonomically classified under the *Mycobacterium tuberculosis* complex (MTBC). 
+
+<center>**Table 1 MTBC identification results**</center>
+
+```{r echo=FALSE, message=FALSE}
+kraken <- read.table(
+  params$kraken,
+  header = FALSE,
+  na.strings = c("NA"),
+  sep = "\t",
+  comment.char = "#"
+)
+
+colnames(kraken) <- c("sample_id", "percentage_MTBC (%)", "category_detected")
+
+datatable(
+  kraken,
+  rownames = FALSE,
+  options = list(
+    scrollX = TRUE,
+    scrollX = TRUE,
+    paging = FALSE,
+    scrollY = "300px",
+    extensions = "FixedColumns",
+    columnDefs = list(list(className = "dt-center", targets = 0:2))
+  )
+) %>%
+  formatStyle(
+    "percentage_MTBC (%)",
+    color = styleInterval(c(params$kraken_cutoff), c("red", "black"))
+  )
+```
+
+<font size="1">**Note** percentage_MTBC: the percentage of the reads that are taxonomically classified under the *Mycobacterium tuberculosis* Complex (MTBC), category_detected: the classification result with the highest proportion of reads.</font>
+
+**Result files**: [2.MTBC_identification](../../2.MTBC_identification/) <bar>
+
+## Read mapping and variant calling
+
+### Read trimming, clipping and transition
+
+The reads are prepared by removing sequence adapters from their ends with Trimmomatic and merging paired-end reads in case they overlap with at least 10 bp with Flash. These steps are necessary in cases where the sequenced DNA fragments are shorter than twice the desired read length. This results in two sets of reads: non-overlapping paired-end reads and merged, longer single reads. Both sets are subjected to quality control with Trimmomatic, where reads with bases of low quality are trimmed. In case reads are now shorter than 50 bp they are completely removed from the dataset. Remaining mates of excluded reads are added to the set of single reads.
+
+### Read mapping
+
+Each of the sets is mapped to a reference pan-genome with bwa mem. The sets of mapped paired-end and single reads are joined for the following analysis with samtools. Duplicated reads are marked and read groups are merged with picard tools in preparation for variant detection. Reads with a mapping quality less than ``r params$mapping_quality`` are not considered in the following analysis steps.
+
+### Alignment QC
+
+The results of the quality control of all alignment bam files generated by Qualimap are assembled using the MultiQC.
+
+[Alignment QC report](../../1.Quality_control/Alignment_QC/MultiQC_report.html)
+
+**Result files**: [1.Quality_control/Alignment_QC](../../1.Quality_control/Alignment_QC) <br>
+
+### Variant calling
+
+The Genome Analysis Toolkit (GATK) is used for variant detection. First, confidence scores for all sites are detected with the HaplotypeCaller tool. Then, genotypes for each site are extract by the GenotypeGVCFs tool. All sites are separated in variant sites, positions with uncalled genotypes and high-quality reference sites. After that, variant sites are split into single nucleotide polymorphisms (SNPs), small deletions and insertions and structural variants with SelectVariants tool from GATK. SNPs with at least ``r params$allele_frequency`` allele frequency and ``r params$mapping_depth`` support reads are used to filter the fixed SNPs.
+
+**Result files**: [3.SNP_calling](../../3.SNP_calling/) <br>
+
+## Transmission inference
+
+### Pairwise SNP-distance computation
+
+The PANPASCO method is used to calculate relative pairwise SNP distance between all samples. SNPs in repeat-rich genes were not used for distance calculations as studies have shown that variants found in these regions are often false positives.
+
+<center>**Table 2 Pairwise SNP-distance matrix**</center>
+
+```{r echo=FALSE, message=FALSE}
+snp_dist <- read.table(
+  params$snp_diff_matrix,
+  header = TRUE,
+  na.strings = c("NA"),
+  sep = "\t",
+  check.names = FALSE
+)
+
+snp_dist[, 2:ncol(snp_dist)] <- round(snp_dist[, 2:ncol(snp_dist)], 2)
+colnames(snp_dist)[1] <- "sample"
+
+datatable(
+  snp_dist,
+  rownames = FALSE,
+  extensions = "FixedColumns",
+  options = list(
+    scrollX = TRUE,
+    scrollY = "300px",
+    paging = FALSE
+  )
+)
+```
+
+Using a heat map visualization to visualize the pairwise SNP-distance between all samples. 
+
+```{r echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics(params$snp_diff_heatmap)
+```
+
+<center>**Figure 1. Pairwise SNP-distance heatmap**</center>
+<br>
+Using a histogram plot to visualize the distribution of all pairwise SNP distances.
+
+```{r echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics(params$snp_diff_histogram)
+```
+<center>**Figure 2. Pairwise SNP-distance distribution**</center>
+<center><font size="1">**Note** The red vertical line one represents a treshold of 50 SNPs.</font><center><br>
+
+<p class="text-left">**Result files**: [4.SNP_distance](../../4.SNP_distance)</p> <br>
+
+### Transmission clustering
+
+```{asis, echo=show.snp}
+#### SNP-based method
+
+For the SNP-based method, a genomic cluster is defined as samples with genomic difference of ``r params$snp_cutoff`` SNPs or less.
+```
+
+```{asis, echo=show.trans}
+#### Transmission-based method
+
+For the transmission-based method, transmission clusters among the all samples were identified using TransCluster at a transmission threshlod (*T*) of ``r params$trans_cutoff`` and transmission rate (*β*) of ``r params$trans_beta``. 
+
+Rather than using SNP distance thresholds alone to define clusters, this method takes into account the elapsed time between cases and an estimated transmission rate in combination with SNP distances to estimate the number of intermediate transmissions between cases. The transmission threshold is the threshold under which the estimated number of intermediate transmissions must be in order for two cases to be defined as clustered. The transmission rate is the rate at which intermediate cases occur in the total time elapsed between the most recent common ancestor of two sampled hosts and sampling events.
+```
+
+<center>**Table 3 Transmission clustering result**</center>
+
+```{r echo=FALSE, message=FALSE}
+snp_dist <- read.table(
+  params$cluster_table,
+  header = TRUE,
+  na.strings = c("NA"),
+  sep = "\t"
+)
+
+colnames(snp_dist) <- c("sample", "tranmission cluster", "type")
+
+datatable(
+  snp_dist,
+  rownames = FALSE,
+  extensions = "FixedColumns",
+  option = list(
+    scrollX = TRUE,
+    scrollY = "300px",
+    paging = FALSE,
+    columnDefs = list(list(className = "dt-center", targets = 0:2))
+  )
+)
+```
+<br>
+```{r echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics(params$clustering_visualization)
+```
+
+<center>**Figure 3. Transmission clustering result**</center>
+<br>
+```{r echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics(params$cluster_member_visualization)
+```
+
+<center>**Figure 4. Statistics of the members of all clusters**</center>
+<br>
+
+**Result files**: [5.Transmission_cluster](../../5.Transmission_cluster/) <br>
+
+### Transmission network
+
+Transmission network is constructed using the SeqTrack algorithm from R package Adegenet. The SeqTrack algorithm aims at reconstructing genealogies of sampled haplotypes or genotypes for which a collection date is available. Contrary to phylogenetic methods which aims at reconstructing hypothetical ancestors for observed sequences, SeqTrack considers that ancestors and descendents are sampled together, and therefore infers ancestry relationships among the sampled sequences. To promote local transmission inference, SeqTrack allows a matrix of spatial connectivity as an optional matrix of proximities.
+
+```{r echo=FALSE, out.width="80%", fig.align="center"}
+if (network_show) {
+knitr::include_graphics(params$network_image)
+} else {
+  ggplot() +
+    theme_void() +
+    geom_text(aes(0, 0, label = "N/A"), size = 12) + # nolint
+    xlab(NULL) #optional, but safer in case another theme is applied later
+}
+```
+
+```{asis, echo=network_show}
+<center>**Figure 5. Transmission network (e.g. Cluster 1)**<center>
+
+<center><font size="1">**Note** Each node represents one strain. The relative pairwise SNP-distances that separate the different strains within the cluster is specified. Arrows indicate the potential direction of transmission within the cluster. The information of each node, including node id, sample name, collection date or coordinates is shown on the right.</font></center>
+<br>
+<p class="text-left">**Result files**: [5.Transmission_cluster](../../5.Transmission_cluster/)</p> <br>
+```
+
+
+```{asis, echo=risk_show}
+### Transmission risk factor
+
+To infer risk factors for transmission of MTB infection, a univariate logistic regression is preformed by using the R package gtsummary and the results are shown in below.
+
+- Coefficients are exponentiated to give odds ratios.
+
+- Global p-values for Stage are reported - Large p-values are rounded to two decimal places.
+
+- P-values less than 0.05 are bold - Variable labels are bold.
+
+<br>
+<center>**Table 4 Univariable analysis of tranmission risk factors**</center>
+<br>
+```
+
+
+```{r echo=FALSE, message=FALSE}
+df <- read.table(params$risk_file, header = T, sep = '\t', check.names = F)
+if (params$show_risk) {
+  df %>%
+  tbl_uvregression(
+    method = glm,
+    y = 'clustering',
+    method.args = list(family = binomial),
+    exponentiate = T,
+    hide_n = T,
+    pvalue_fun = ~style_pvalue(.x, digits = 2)
+  ) %>%
+  add_global_p(quite = T) %>%  # add global p-value
+  bold_p() %>%        # bold p-values under a given threshold (default 0.05)
+  bold_p(t = 0.05) %>% # now bold q-values under the threshold of 0.10
+  bold_labels() %>%
+  modify_table_body(
+    ~ .x %>%
+      dplyr::mutate(u_event = n_obs - n_event) %>%
+      dplyr::relocate(c(n_event, u_event), .before = estimate)
+  ) %>%
+  # assigning header labels
+  modify_header(n_event = "**Clustered**", u_event = "**Unique**") %>%
+  modify_fmt_fun(c(n_event, u_event) ~ style_number)
+}
+```
+
+```{asis, echo=risk_show}
+<br>
+**Result files**: [6.Risk_factor](../../Risk_factor/) <br>
+<br>
+```
