@@ -8,7 +8,7 @@ The workflow filters non-MTBC samples using Kraken, then preforms quality contol
 
 ## 🐍 Workflow
 
-![Workflow](https://github.com/cvn001/transflow/blob/master/flowchart/flowchart.jpg)
+![Workflow](https://github.com/cvn001/transflow/blob/master/flowchart/flowchart.svg)
 
 ## ⚙️ Installation
 
