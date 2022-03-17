@@ -44,16 +44,16 @@ clus_file <- args$clusters
 c_list <- args$list
 output_dir <- args$output_dir
 
-char_df <- read.table(char_file, sep = '\t', header = T, check.names = F, comment.char = "#", stringsAsFactors = F)
-clus_df <- read.table(clus_file, sep = '\t', header = T, check.names = F, comment.char = "#", stringsAsFactors = F)
+char_df <- read.table(char_file, sep = '\t', header = T, check.names = F, comment.char = "#", stringsAsFactors = F, na.strings = c('NA', ''))
+clus_df <- read.table(clus_file, sep = '\t', header = T, check.names = F, comment.char = "#", stringsAsFactors = F, na.strings = c('NA', ''))
 setwd(output_dir)
 total <- merge(clus_df, char_df, by = 'sample')
+
 ###############################################################################################
 cat(paste0('[1] Epidemiological characteristics: [', paste(c_list, collapse = ', '), '].\n'))
 valid_cols <- c('clustering')
 for (i in c_list) {
   if (i %in% colnames(total)) {
-    if (class(total[,i]) == 'character') total[,i] <- as.factor(total[,i])
     valid_cols <- c(valid_cols, i)
   } else {
     print(paste0('Warning, [', i, '] is not in the characters file.'))
@@ -82,7 +82,6 @@ tbl <- select_data %>%
     pvalue_fun = ~style_pvalue(.x, digits = 2)
   ) %>%
   add_global_p(quiet = T) %>%  # add global p-value
-  bold_p() %>%        # bold p-values under a given threshold (default 0.05)
   bold_p(t = 0.05) %>% # now bold q-values under the threshold of 0.10
   bold_labels() %>%
   modify_table_body(
