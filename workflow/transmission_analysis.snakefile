@@ -73,8 +73,8 @@ basic_output.append(expand("5.Transmission_cluster/{output}/cluster_member_visua
 basic_output.append(expand("5.Transmission_cluster/{output}/cluster_member_visualization.png", output=METHOD_DIR))
 
 if CHARACTERS:
-    basic_output.append(expand("6.Risk_factor/{output}/univariable_regression_result.html", output=METHOD_DIR))
-    basic_output.append(expand("6.Risk_factor/{output}/univariable_regression_result.rtf", output=METHOD_DIR))
+    basic_output.append(expand("6.Risk_factor/{output}/univariable_regression_result.pdf", output=METHOD_DIR))
+    basic_output.append(expand("6.Risk_factor/{output}/univariable_regression_result.png", output=METHOD_DIR))
     basic_output.append(expand("6.Risk_factor/{output}/characteristic_data.txt", output=METHOD_DIR))
 
 rule all:

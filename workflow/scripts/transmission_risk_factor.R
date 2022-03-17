@@ -93,5 +93,5 @@ tbl <- select_data %>%
   # assigning header labels
   modify_header(n_event = "**Clustered**", u_event = "**Unique**") %>%
   modify_fmt_fun(c(n_event, u_event) ~ style_number)
-gt::gtsave(as_gt(tbl), file = 'univariable_regression_result.html')
-gt::gtsave(as_gt(tbl), file = 'univariable_regression_result.rtf')
+gt::gtsave(as_gt(tbl), file = 'univariable_regression_result.pdf')
+gt::gtsave(as_gt(tbl), file = 'univariable_regression_result.png', zoom = 2)

@@ -10,8 +10,8 @@ rule risk_factor_testing:
         e = expand("5.Transmission_cluster/{output}/cluster_member_visualization.pdf", output=METHOD_DIR),
         f = expand("5.Transmission_cluster/{output}/cluster_member_visualization.png", output=METHOD_DIR)
     output:
-        expand("6.Risk_factor/{output}/univariable_regression_result.html", output=METHOD_DIR),
-        expand("6.Risk_factor/{output}/univariable_regression_result.rtf", output=METHOD_DIR),
+        expand("6.Risk_factor/{output}/univariable_regression_result.pdf", output=METHOD_DIR),
+        expand("6.Risk_factor/{output}/univariable_regression_result.png", output=METHOD_DIR),
         expand("6.Risk_factor/{output}/characteristic_data.txt", output=METHOD_DIR)
     params:
         workdir = expand("6.Risk_factor/{output}", output=METHOD_DIR)
