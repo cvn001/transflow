@@ -16,11 +16,11 @@ OUTFILENAME = "samples"
 SCRIPTS = srcdir("scripts/")
 # Reference genome data
 RESOURCE = srcdir('resources/')
-REF_GENOME = RESOURCE + 'reference/MTB_pangenome_consensus.fasta'
+REF_GENOME = RESOURCE + 'reference/pangenomeMTB_consensus.fasta'
 GENOME_FILE = config.get("genome_file", REF_GENOME)
 GENOME = os.path.splitext(os.path.basename(GENOME_FILE))[0]
-REF_GENOME_BED = RESOURCE + 'reference/MTB_pangenome_genome_gaps.bed'
-EXCLUDE_BED = RESOURCE + 'exclusion/MTB_pangenome_excluded_loci.bed'
+REF_GENOME_BED = RESOURCE + 'reference/pangenomeMTB_genome_gaps.bed'
+EXCLUDE_BED = RESOURCE + 'exclusion/pangenomeMTB_excluded_loci.bed'
 GENOMEGAPSFILE = config.get("genomegaps_file", REF_GENOME_BED)
 EXCLUDEREGIONS = config.get("exclude_regions_file", EXCLUDE_BED)
 # Alignment statistics

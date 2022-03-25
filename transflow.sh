@@ -24,16 +24,16 @@ if [ "$1" == "" -o "$1" == "-h" -o \( "$1" != "--configfile" -a "$1" != "--help"
 fi
 #####################################################################################################################
 echo "1st step: Generate quality control statistics (based on fastqc and MultiQC) ..."
-snakemake -s "${BASH_SOURCE%/*}/workflow/quality_control.snakefile" "$@"
+snakemake -s "$(dirname "$0")/workflow/quality_control.snakefile" "$@"
 #####################################################################################################################
 echo "2nd step: MTBC filtering (based on Kraken) ..."
-snakemake -s "${BASH_SOURCE%/*}/workflow/mtbc_filtering.snakefile" "$@"
+snakemake -s "$(dirname "$0")/workflow/mtbc_filtering.snakefile" "$@"
 #####################################################################################################################
 echo "3rd step: variants calling (based on MTB pan-genome & bwa + GATK3) ..."
-snakemake -s "${BASH_SOURCE%/*}/workflow/variant_calling.snakefile" "$@"
+snakemake -s "$(dirname "$0")/workflow/variant_calling.snakefile" "$@"
 #####################################################################################################################
 echo "4th step: sample clustering and transmission events predicting (based on transcluster + SeqTrack) ..."
-snakemake -s "${BASH_SOURCE%/*}/workflow/transmission_detection.snakefile" "$@"
+snakemake -s "$(dirname "$0")/workflow/transmission_detection.snakefile" "$@"
 #####################################################################################################################
 echo "5th step: generating a summary report (html format)..."
-snakemake -s "${BASH_SOURCE%/*}/workflow/generating_report.snakefile" "$@"
+snakemake -s "$(dirname "$0")/workflow/generating_report.snakefile" "$@"

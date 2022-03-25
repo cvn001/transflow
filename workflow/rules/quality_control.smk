@@ -6,7 +6,7 @@ rule fastqc:
         fq2 = expand("{fastqdir}/{{smp}}_{fpostfix}2.fastq.gz", fastqdir=FASTQDIR, fpostfix=FASTQPOSTFIX, smp=SAMPLES)
     output:
         fastqc_1 = "1.Quality_control/Sequence_QC/FastQC/{smp}_1_fastqc.html",
-        fastqc_2 = "1.Quality_control/sequence_QC/FastQC/{smp}_2_fastqc.html"
+        fastqc_2 = "1.Quality_control/Sequence_QC/FastQC/{smp}_2_fastqc.html"
     conda:
         "envs/quast.yaml"
     threads:

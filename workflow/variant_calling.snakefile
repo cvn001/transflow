@@ -25,7 +25,7 @@ FLASH_OVERLAP = config.get("flash_overlap", 10)
 READ_MIN_LEN = config.get("trimmomatic_read_minimum_length", 50)
 # Load Reference genome, default is a pre-built pan-genome
 RESOURCE = srcdir('resources/')
-REF_GENOME = RESOURCE + 'reference/MTB_pangenome_consensus.fasta'
+REF_GENOME = RESOURCE + 'reference/pangenomeMTB_consensus.fasta'
 GENOME_FILE = config.get("genome_file", REF_GENOME)
 GENOME_FDIR = os.path.dirname(GENOME_FILE)
 GENOME = os.path.splitext(os.path.basename(GENOME_FILE))[0]

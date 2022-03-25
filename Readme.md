@@ -8,7 +8,7 @@ The workflow filters non-MTBC samples using Kraken, then preforms quality contol
 
 ## 🐍 Workflow
 
-![Workflow](https://github.com/cvn001/transflow/blob/master/flowchart/flowchart.svg)
+![Workflow](https://github.com/cvn001/transflow/blob/master/flowchart/flowchart.jpg)
 
 ## ⚙️ Installation
 
@@ -16,7 +16,7 @@ The workflow filters non-MTBC samples using Kraken, then preforms quality contol
 
 ### Conda
 
-Conda can function as a package manages are is available [here](https://docs.conda.io/en/latest/miniconda.html). If you have conda make sure the bioconda and conda-forge channels are added:
+Conda can function as a package manager and is available [here](https://docs.conda.io/en/latest/miniconda.html). If you have conda make sure the bioconda and conda-forge channels are added:
 
 ```bash
 conda config --add channels defaults
@@ -139,7 +139,7 @@ These parameters are set in the configuration files.
 | fastqdir | Directory with .fastq.gz files named ID_1.fastq.gz, ID_2.fastq.gz| fastq |
 | fastqpostfix | Specification of fastq.gz format; e.g. for the format sample_R1.fastq.gz put "fastqpostfix: R" | - |
 | kraken_cutoff | Threshold of MTBC reads percentage | 90 |
-| allele_frequency_threshold | Allele frequency treshold for definition of high-quality SNPs  | 0.75 |
+| allele_frequency_threshold | Allele frequency threshold for definition of high-quality SNPs  | 0.75 |
 | mapping_quality_threshold | Minimum Mapping Quality for reads to be used with GATK HaplotypeCaller | 10 |  
 | depth_threshold | Minimum coverage depth for high-quality regions | 5 |
 | flash_overlap | Number of overlapping basepairs of paired reads for FLASH to merge reads | 10 |

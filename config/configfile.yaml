@@ -3,22 +3,28 @@
 # MANDATORY PARAMS
 
 # path to FASTA file of reference genome
-genome_file: /home/lxc/development/transmission-cwmda/resources/reference/MTB_pangenome_consensus.fasta
+genome_file: workflow/resources/reference/pangenomeMTB_consensus.fasta
 
 # path to BED file of reference genome gaps
-genomegaps_file: /home/lxc/development/transmission-cwmda/resources/reference/MTB_pangenome_genome_gaps.bed
+genomegaps_file: workflow/resources/reference/pangenomeMTB_genome_gaps.bed
+
+# path to BED file of excluded reference genome locations regarding to the PE/PPE, PE-PGRS and drug-resistance associated genes
+exclude_regions_file: workflow/resources/reference/pangenomeMTB_consensus
+
+# kraken v1 reference database.
+# MiniKraken DB is suggested (https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz).
+# kraken_db: /path/to/kraken_db
 
 # path to Text file including all samples information. One sample per line.
 # The line should start with the "sample" column and contain at least a "date" column.
 # For transmission network reconstruction, both "longitude" and "latitude" columns could be used.
-metadata_file: samples.txt
+# metadata_file: /path/to/samples.txt
 
 # PARAMS WITH DEFAULT VALUES
 
 # path to directory with fastq files
 # default 'fastq' in working directory
 # fastqdir: /path/to/fastq/
-fastqdir: fastq
 
 # fastq files are assumed to be of the format sample_1.fastq.gz
 # use "fastqpostfix" for different file name formats 
@@ -54,9 +60,6 @@ trimmomatic_read_minimum_length: 50
 # default = 15
 #trimmomatic_qual_slidingwindow: 
 
-# kraken v1 reference database.
-# MiniKraken DB is suggested (https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz).
-kraken_db: /lvdata/lxc/work/Kraken/minikraken_20171019_8GB
 # cutoff for MTBC sequences percentage.
 kraken_cutoff: 80
 
