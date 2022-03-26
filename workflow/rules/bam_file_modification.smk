@@ -36,7 +36,7 @@ rule mark_duplicates:
     threads:
         SAMPLE_THREADS
     shell:
-        "picard -XX:ParallelGCThreads={threads} MarkDuplicates I={input} O={output.bam} METRICS_FILE={output.txt} 2>&1> {log}"
+        "picard -XX:ParallelGCThreads={threads} MarkDuplicates I={input} O={output.bam} METRICS_FILE={output.txt} 2>&1 >{log}"
 
 
 rule add_readgroups:

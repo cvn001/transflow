@@ -33,13 +33,19 @@ git clone https://gitee.com/cwmda/transflow.git
 ### Create the environment
 
 ```bash
-conda env create -n transflow -f workflows/envs/env.yaml
+conda env create -f workflows/envs/env.yaml
 ```
 
 ### Activate the environment
 
 ```bash
 conda activate transflow
+```
+
+### Install the **transcluster** in **R**
+
+```R
+devtools::install_github("JamesStimson/transcluster")
 ```
 
 ### Kraken database

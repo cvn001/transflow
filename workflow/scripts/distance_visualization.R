@@ -20,10 +20,10 @@ output_heatmap_png <- file.path(output_dir, paste0(heatmap_name, ".png"))
 snp_diff <- read.table(input_file, header = T, check.names = F, sep = "\t", row.names = 1) # nolint
 cat("[*] Exporting heatmap image.\n")
 # export to a pdf file
-pheatmap(snp_diff, show_rownames = show_rownames_arg, fontsize = 3.5, border_color = NA,
+pheatmap(snp_diff, show_rownames = show_rownames_arg, border_color = NA,
   show_colnames = show_colnames_arg, filename = output_heatmap_pdf)
 # export to a png file
-pheatmap(snp_diff, show_rownames = show_rownames_arg, fontsize = 3.5, border_color = NA,
+pheatmap(snp_diff, show_rownames = show_rownames_arg, border_color = NA,
          show_colnames = show_colnames_arg, filename = output_heatmap_png)
 cat("[2] Drawing pairwise snp distance histogram plot.\n")
 snp_diff <- as.matrix(snp_diff)
@@ -33,7 +33,7 @@ names(long_df) <- c("A", "B", "Distance")
 line_pos <- 50
 long_df$Group <- ifelse(long_df$Distance > line_pos, 'far', 'close')
 # draw histogram
-p <- gghistogram(long_df, x = "Distance", rug = T, bins = 90, ylab = "Count", fill = "white", color = "Group", palette = c("red", "#0F425CFF")) + # nolint
+p <- gghistogram(long_df, x = "Distance", rug = T, bins = 40, ylab = "Count", fill = "white") + # nolint
   geom_vline(xintercept = line_pos, col = "red", linetype = "dashed") + xlab("Pairwise SNP distance") + ylab("Frequency") + # nolint
   theme(legend.position = "none")
 histogram_name <- paste0(prefix, "_pairwise_distance_distribution")

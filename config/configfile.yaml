@@ -3,13 +3,13 @@
 # MANDATORY PARAMS
 
 # path to FASTA file of reference genome
-genome_file: workflow/resources/reference/pangenomeMTB_consensus.fasta
+# genome_file: workflow/resources/reference/pangenomeMTB_consensus.fasta
 
 # path to BED file of reference genome gaps
-genomegaps_file: workflow/resources/reference/pangenomeMTB_genome_gaps.bed
+# genomegaps_file: workflow/resources/reference/pangenomeMTB_genome_gaps.bed
 
 # path to BED file of excluded reference genome locations regarding to the PE/PPE, PE-PGRS and drug-resistance associated genes
-exclude_regions_file: workflow/resources/reference/pangenomeMTB_consensus
+# exclude_regions_file: workflow/resources/exclusion/pangenomeMTB_excluded_loci.bed
 
 # kraken v1 reference database.
 # MiniKraken DB is suggested (https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz).

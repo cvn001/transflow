@@ -1,7 +1,13 @@
-suppressWarnings(suppressMessages(require(argparse)))
-suppressWarnings(suppressMessages(library(transcluster)))
+suppressWarnings(suppressMessages(library(argparse)))
 suppressWarnings(suppressMessages(library(stats)))
 suppressWarnings(suppressMessages(library(lubridate)))
+
+if (!require("transcluster")) {
+  suppressMessages(devtools::install_github("JamesStimson/transcluster", build_vignettes = F))
+}
+
+suppressWarnings(suppressMessages(library(transcluster)))
+
 
 options(warn = -1)
 rm(list = ls())

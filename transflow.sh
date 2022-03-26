@@ -33,7 +33,7 @@ echo "3rd step: variants calling (based on MTB pan-genome & bwa + GATK3) ..."
 snakemake -s "$(dirname "$0")/workflow/variant_calling.snakefile" "$@"
 #####################################################################################################################
 echo "4th step: sample clustering and transmission events predicting (based on transcluster + SeqTrack) ..."
-snakemake -s "$(dirname "$0")/workflow/transmission_detection.snakefile" "$@"
+snakemake -s "$(dirname "$0")/workflow/transmission_analysis.snakefile" "$@"
 #####################################################################################################################
 echo "5th step: generating a summary report (html format)..."
 snakemake -s "$(dirname "$0")/workflow/generating_report.snakefile" "$@"
