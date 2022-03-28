@@ -38,7 +38,7 @@ si <- Seqinfo(seqnames = c(genome), seqlengths = c(genomelen))
 snp_matrix <- data.frame()
 
 ref <- data.frame()
-all_ids <- unlist(read.table(id_f, header = F, stringsAsFactors = F))
+all_ids <- as.character(unlist(read.table(id_f, header = F, stringsAsFactors = F)))
 
 # read all vcf positions with bases and store bases in snp matrix
 # also keep track of reference bases for each position

@@ -51,6 +51,7 @@ if (0 %in% check) {
   print(paste0("Error: not valid columns [", col_string, "] found in metadata file.\n"))
   quit(status = 1)
 }
+df$sample <- as.character(df$sample)
 df <- df[, c('sample', 'date')]
 rownames(df) <- df$sample
 if (decimal_date %in% c('TRUE', 'True', 'true', 'T', 't')) {

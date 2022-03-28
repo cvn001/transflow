@@ -23,8 +23,10 @@ use_coord <- args$coord
 set.seed(12345)
 
 meta_data <- read.table(input_meta, header = T, sep = '\t', stringsAsFactors = F, check.names = F)
+meta_data$sample <- as.character(meta_data$sample)
 samples <- read.csv(input_sample, header = F, check.names = F)
 colnames(samples) <- c('sample')
+samples$sample <- as.character(samples$sample)
 distance <- read.table(input_distance, sep = '\t', header = T, row.names = 1, stringsAsFactors = F, check.names = F)
 distance <- round(as.matrix(distance), 1)
 if (use_coord %in% c('true', 'True', 'TRUE', 't', 'T')) {
