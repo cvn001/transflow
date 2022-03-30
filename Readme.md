@@ -67,7 +67,7 @@ To run the complete workflow do the following:
 ## 🔧 Quick start
 ### Example
 
-We provide a example dataset including WGS and corresponding epidemiological data which is publicly hosted at Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6345888.svg)](https://doi.org/10.5281/zenodo.6345888)
+We provide an example dataset including WGS and corresponding epidemiological data which is publicly hosted at Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6345888.svg)](https://doi.org/10.5281/zenodo.6345888)
 
 Further information is provided in the database section below.
 
