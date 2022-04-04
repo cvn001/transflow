@@ -27,7 +27,7 @@ conda config --add channels conda-forge
 ### Clone the repository
 
 ```bash
-git clone https://gitee.com/cwmda/transflow.git
+git clone git@github.com:cvn001/transflow.git
 ```
 
 ### Create the environment
