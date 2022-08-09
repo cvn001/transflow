@@ -47,6 +47,9 @@ glob_files: false
 sample_threads: 1
 
 ## Filter params
+# the quality value that a base is qualified. Default 15 means phred quality >=Q15 is qualified.
+base_quality: 15
+
 # minimum allele frequency to be considered 'homozygous' variant call
 # default = 0.75
 allele_frequency_threshold: 0.75
@@ -81,7 +84,7 @@ kraken_cutoff: 90
 MTBC_reads_only: false
 
 # output files prefix
-output_prefix: MTB_samples
+output_prefix: samples
 
 # fontsize for all rownames and colnames
 # default is null then the pipeline will auto adjust font size in pheatmap.

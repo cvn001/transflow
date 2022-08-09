@@ -2,7 +2,7 @@
 
 ## 🧉 Introduction
 
-TransFlow is a modular, flexible and user-friendly tuberculosis transmission analysis workflow based on whole genome sequencing (WGS) of *Mycobacterium tuberculosis* complex (MTBC).
+TransFlow is a modular, flexible and user-friendly tuberculosis (TB) transmission analysis workflow based on whole genome sequencing (WGS) of *Mycobacterium tuberculosis* complex (MTBC). It should be noted that this workflow is specially designed for the TB transmission analysis. For other researches, like MTBC strain typing or drug-resistance predicting, please refer to other state-of-the-art tools, such as [SAM-TB](http://samtb.szmbzx.com), [TB-profiler](https://tbdr.lshtm.ac.uk/) and [Mykrobe](https://www.mykrobe.com/).
 
 The workflow filters non-MTBC samples using Kraken, then preforms quality control (QC) using both FastQC and MultiQC. After that, it uses the PANPASCO workflow to do pan-genome mapping and relative pairwise SNP distance calculation for transmission analysis. Next, it infers transmission clusters and networks using transcluster and SeqTrack, separately. Finally, it detects risk factors that significantly associate with transmission clustering.
 
@@ -203,7 +203,7 @@ snakemake generating_report.snakemake --configfile config/configfile.yaml -j 4
 
 These parameters are set in the configuration files. Please read them carefully before using TransFlow.
 
-| Parameter | Description | Default | Discussion |
+| Parameter | Description | Default | Note |
 | :------ | :---------- | :----- | :---------- |
 | `genome_file` | Reference genome file | *provided in this repository* | User can generate this using [seq-seq-pan](https://gitlab.com/rki_bioinformatics/seq-seq-pan) |
 | `genomegaps_file` | File in .bed format with gaps in WGA of pan-genome | *provided in this repository* | For more details refer to [seq-seq-pan](https://gitlab.com/rki_bioinformatics/seq-seq-pan) |
@@ -214,6 +214,7 @@ These parameters are set in the configuration files. Please read them carefully 
 | `glob_files` | [`true` or `false`], `true`: the workflow will load all fastq files in the input directory and parse all the sample names. `false`: the workflow will only read the fastq files of the samples in the metadata file. | false | |
 | `kraken_cutoff` | Threshold of MTBC reads percentage | 80 | This value can be changed according to  |
 | `MTBC_reads_only` | Filter out only MTBC reads | false | This would allow for slightly contaminated samples to still be reliably processed |
+| `base_quality` | the quality value that a base is qualified | 15 | default 15 means phred quality >=Q15 is qualified |
 | `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
 | `mapping_quality_threshold` | Minimum Mapping Quality for reads to be used with GATK HaplotypeCaller | 10 |  |
 | `depth_threshold` | Minimum coverage depth for high-quality regions | 5 |  |
