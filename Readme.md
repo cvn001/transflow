@@ -115,7 +115,7 @@ devtools::install_github("JamesStimson/transcluster")
 
 ### Download MiniKraken database
 
-A pre-built 8 GB database [MiniKraken DB_8GB](https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz) for Kraken V1 is the suggested reference database for TransFlow. It is constructed from complete bacterial, archaeal, and viral genomes in RefSeq. According to the website, the latest version of MniKraken is **10/19/2017**.
+A pre-built 8 GB Kraken database [MiniKraken DB_8GB](https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz) for Kraken V1 is the suggested reference database for TransFlow. It is constructed from complete bacterial, archaeal, and viral genomes in RefSeq. According to the website, the latest version of MniKraken is **10/19/2017**.
 
 ---
 
@@ -129,13 +129,13 @@ To run the complete workflow do the following:
   + The following columns for each row:
     + (A) `sample` (id of each sample) \[Required\]
     + (B) `date` (collection date of each sample) \[Optional\]
-    + (C) `latitude` (latitude of sample) \[Optional\]
-    + (D) `longitude` (longitude of sample) \[Optional\]
-    + (...) (Other epidemiological character of each sample for risk factor testing) \[Optional\]
+    + (C) `latitude` (latitude of each sample) \[Optional\]
+    + (D) `longitude` (longitude of each sample) \[Optional\]
+    + (...) (Other epidemiological characters of each sample for risk factor inference) \[Optional\]
 + Modify the example configure file (`config/configfile.yaml`) to specify the appropriate:
   + `metadata_file` to `/path/to/metadata_file`
   + `kraken_db` to `/path/to/minikraken_20171019_8GB`
-  + `characteristics` to collected characters, leave blank for none.
+  + `characteristics` to collected characters, leave blank for skipping the risk factor analysis module.
 
 ---
 
@@ -211,8 +211,9 @@ These parameters are set in the configuration files. Please read them carefully 
 | `metadata_file` | File with list of samples with one ID per line | - | Missing values will be omitted |
 | `fastqdir` | Directory with .fastq.gz files named `ID_1.fastq.gz`, `ID_2.fastq.gz` | fastq | Only support Illumina PE seq data |
 | `fastqpostfix` | Specification of fastq.gz format; e.g. for the format sample_R1.fastq.gz put `fastqpostfix: R` | - | Don't mix different postfixes |
+| `glob_files` | [`true` or `false`], `true`: the workflow will load all fastq files in the input directory and parse all the sample names. `false`: the workflow will only read the fastq files of the samples in the metadata file. | false | |
 | `kraken_cutoff` | Threshold of MTBC reads percentage | 80 | This value can be changed according to  |
-| `MTBC_reads_only` | Filter out only MTBC reads | false | This would allow for contaminated samples to still be reliably processed |
+| `MTBC_reads_only` | Filter out only MTBC reads | false | This would allow for slightly contaminated samples to still be reliably processed |
 | `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
 | `mapping_quality_threshold` | Minimum Mapping Quality for reads to be used with GATK HaplotypeCaller | 10 |  |
 | `depth_threshold` | Minimum coverage depth for high-quality regions | 5 |  |
@@ -233,9 +234,11 @@ These parameters are set in the configuration files. Please read them carefully 
 
 ## 📲 Troubleshoot common issues
 
+### Common issues
+
 For contacting the developer and issue reports please go to [Issues](https://github.com/cvn001/transflow/issues).
 
-### Some genomes aren't included in the transmission results
++ **Some samples are not in the transmission results**
 
 There are a few steps where sequences can be removed:
 
@@ -247,15 +250,13 @@ No ambiguity in (sample collection) date
 Samples may be randomly removed during subsampling; see :doc:`../guides/workflow-config-file` for more info.
 During the refine step, where samples that deviate more than 4 interquartile ranges from the root-to-tip vs time are removed
 
-#### Possible crash and exception
-
 + **Java on Linux insufficient memory even though there is plenty of available memory being used for caching**
 
 This is the `kernel.pid_max` limit. To solve this error, please refer to this [link](https://serverfault.com/questions/662992/java-on-linux-insufficient-memory-even-though-there-is-plenty-of-available-memor). To check and tuning the limit: [link](https://www.cyberciti.biz/tips/howto-linux-increase-pid-limits.html)
 
-+ To be added...
++ **To be added...**
 
-##### Unlocking
+### Unlocking
 
 After the workflow was killed (Snakemake didn’t shutdown), the workflow directory will be still locked. If you are sure, that snakemake is no longer running `(ps aux | grep snake)`.
 
@@ -265,7 +266,7 @@ Unlock and clean up the working directory:
 snakemake *.snakemake --unlock --cleanup-shadow
 ```
 
-#### Rerun incomplete
+### Rerun incomplete
 
 If Snakemake marked a file as incomplete after a crash, delete and produce it again.
 
@@ -275,4 +276,4 @@ snakemake *.snakemake --ri
 
 ## 🍾 License
 
-The code is available under the [GNU GPLv3 license](https://choosealicense.com/licenses/gpl-3.0/). The text and data are availabe under the [CC-BY license](https://choosealicense.com/licenses/cc-by-4.0/).
+The code is available under the [GNU GPLv3 license](https://choosealicense.com/licenses/gpl-3.0/). The text and data are available under the [CC-BY license](https://choosealicense.com/licenses/cc-by-4.0/).
