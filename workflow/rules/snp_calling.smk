@@ -18,11 +18,12 @@ rule snp_calling:
     output:
         vcf = "3.SNP_calling/{smp}/{genome}/{smp}.g.vcf",
         idx = "3.SNP_calling/{smp}/{genome}/{smp}.g.vcf.idx"
+    threads:
+        SAMPLE_THREADS
     log:
-        "3.SNP_calling/{smp}/{genome}/snpcalling.log"
+        "3.SNP_calling/{smp}/{genome}/snp_calling.log"
     shell:
-        "gatk3 -T HaplotypeCaller -o {output.vcf} -I {input.bam} --sample_ploidy 2 "
-        "-R {input.fasta} -mmq {MQ_threshold} -ERC GVCF &> {log}"
+        "gatk3 -T HaplotypeCaller -o {output.vcf} -I {input.bam} --sample_ploidy 2 -nct {threads} -R {input.fasta} -mmq {MQ_threshold} -ERC GVCF &> {log}"
 
 
 rule genotype_calling:
@@ -34,11 +35,12 @@ rule genotype_calling:
     output:
         vcf = "3.SNP_calling/{smp}/{genome}/{smp}.vcf",
         idx = "3.SNP_calling/{smp}/{genome}/{smp}.vcf.idx"
+    threads:
+        SAMPLE_THREADS
     log:
         "3.SNP_calling/{smp}/{genome}/genotyping.log"
     shell:
-        "gatk3 -T GenotypeGVCFs -R {input.fasta} --variant {input.gvcf} -o {output.vcf} "
-        "--sample_ploidy 2 --includeNonVariantSites -stand_call_conf {DP_threshold} &> {log}"
+        "gatk3 -T GenotypeGVCFs -R {input.fasta} --variant {input.gvcf} -o {output.vcf} -nt {threads} --sample_ploidy 2 --includeNonVariantSites -stand_call_conf {DP_threshold} &> {log}"
 
 
 rule gatk_vars:

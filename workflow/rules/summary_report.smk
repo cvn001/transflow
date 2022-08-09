@@ -7,18 +7,20 @@ rule generate_yaml:
         temp(expand('7.Summary_report/{dir}/report.yaml', dir=METHOD_DIR))
     params:
         b = KRAKEN_CUTOFF,
+        m = MTBC_READS_ONLY,
         c = MQ_threshold,
         d = AF_threshold,
         e = DP_threshold,
         f = METHOD,
         g = SNP_CUTOFF,
         i = TRANS_CUTOFF,
-        j = METHOD_DIR
+        j = METHOD_DIR,
+        p = OUTFILENAME
     log:
         expand('7.Summary_report/{dir}/generate_yaml.log', dir=METHOD_DIR)
     shell:
         "python3 {SCRIPTS}generate_report_yaml.py -a {input} -b {params.b} -c {params.c} -d {params.d}"
-        " -e {params.e} -f {params.f} -g {params.g} -i {params.i} -j {params.j} 2> {log}"
+        " -e {params.e} -f {params.f} -g {params.g} -i {params.i} -j {params.j} -m {params.m} -p {params.p} 2> {log}"
 
 # Generate summary report using a R markdown script
 rule generate_report:

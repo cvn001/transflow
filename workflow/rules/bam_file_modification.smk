@@ -4,13 +4,15 @@ rule sort_bam:
     input:
         "temp/mapped/{smp}/{genome}/{smp}_{reads}_Aligned.out.bam"
     output:
-        "temp/mapped/{smp}/{genome}/{smp}_{reads}_Aligned.sortedByCoord.out.bam"
+        temp("temp/mapped/{smp}/{genome}/{smp}_{reads}_Aligned.sortedByCoord.out.bam")
     threads:
         SAMPLE_THREADS
+    shadow: 
+        "shallow"
     log:
         "temp/mapped/{smp}/{genome}/{smp}_{reads}_Aligned.sortedByCoord.out.tmp"
     shell:
-        "samtools sort -@ {threads} -T {log} {input} > {output}"
+        "samtools sort --verbosity 0 -@ {threads} -T {log} {input} > {output}"
 
 
 rule combine_bam:
@@ -18,25 +20,25 @@ rule combine_bam:
         se = "temp/mapped/{smp}/{genome}/{smp}_se_Aligned.sortedByCoord.out.bam",
         pe = "temp/mapped/{smp}/{genome}/{smp}_pe_Aligned.sortedByCoord.out.bam"
     output:
-        "temp/ready_forvar/{smp}/{genome}/{smp}.bam"
+        temp("temp/ready_forvar/{smp}/{genome}/{smp}.bam")
     threads:
         SAMPLE_THREADS
     shell:
-        "samtools merge -@ {threads} {output} {input.se} {input.pe}"
+        "samtools merge --verbosity 0 -@ {threads} {output} {input.se} {input.pe}"
 
 
 rule mark_duplicates:
     input:
         "temp/ready_forvar/{smp}/{genome}/{smp}.bam"
     output:
-        bam = "temp/ready_forvar/{smp}/{genome}/{smp}_markeddup.bam",
+        bam = temp("temp/ready_forvar/{smp}/{genome}/{smp}_markeddup.bam"),
         txt = "temp/ready_forvar/{smp}/{genome}/{smp}_metrics.txt"
     log:
         "temp/ready_forvar/{smp}/{genome}/mark_duplicates.log"
     threads:
         SAMPLE_THREADS
     shell:
-        "picard -XX:ParallelGCThreads={threads} MarkDuplicates I={input} O={output.bam} METRICS_FILE={output.txt} 2>&1 >{log}"
+        "picard -XX:ParallelGCThreads={threads} MarkDuplicates I={input} O={output.bam} METRICS_FILE={output.txt} QUIET=true VERBOSITY=ERROR 2>&1 >{log}"
 
 
 rule add_readgroups:
@@ -52,4 +54,4 @@ rule add_readgroups:
         sm = wildcards["smp"]
         lb = "lb"
         pu = "pu"
-        shell("picard -XX:ParallelGCThreads={threads} AddOrReplaceReadGroups I={input[0]} O={output} LB={lb} PL=illumina PU={pu} SM={sm} 2>&1 >{log}")
+        shell("picard -XX:ParallelGCThreads={threads} AddOrReplaceReadGroups I={input[0]} O={output} LB={lb} PL=illumina PU={pu} SM={sm} QUIET=true VERBOSITY=ERROR 2>&1 >{log}")

@@ -4,10 +4,12 @@ rule qualimap:
     output:
         d = directory("1.Quality_control/Alignment_QC/Qualimap/{smp}"),
         f = "1.Quality_control/Alignment_QC/Qualimap/{smp}/qualimapReport.html"
-    threads:
-        SAMPLE_THREADS
+    # threads:
+    #     SAMPLE_THREADS
+    log:
+        "1.Quality_control/Alignment_QC/Qualimap/{smp}/qualimap.log"
     shell:
-        "qualimap bamqc -bam {input} -nt {threads} --java-mem-size=2G -outdir {output.d}"
+        "qualimap bamqc -bam {input} -nt 1 -outdir {output.d} &> {log}"
 
 
 rule alignment_summary:
@@ -19,4 +21,4 @@ rule alignment_summary:
         output = "1.Quality_control/Alignment_QC/Qualimap",
         cl = "qualimap_config: { general_stats_coverage: [1,10] }"
     shell:
-        'multiqc {params.output} --filename {output.report} --force -p --cl_config "{params.cl}"'
+        'multiqc {params.output} -n {output.report} --force -p -q --cl_config "{params.cl}"'

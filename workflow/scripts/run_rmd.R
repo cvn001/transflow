@@ -10,7 +10,9 @@ config <- yaml.load_file(config_file)
 config <- config[["dictitems"]]
 kraken <- config$kraken
 kraken_cutoff <- config$kraken_cutoff
-multiqc <- config$multiqc
+before_multiqc <- config$before_multiqc
+after_multiqc <- config$after_multiqc
+mtbc_only <- config$mtbc_only
 mapping_quality <- config$mapping_quality
 allele_frequency <- config$allele_frequency
 mapping_depth <- config$mapping_depth
@@ -36,7 +38,9 @@ rmarkdown::render(
   params = list(
     kraken = kraken,
     kraken_cutoff = kraken_cutoff,
-    multiqc = multiqc,
+    mtbc_only = mtbc_only,
+    before_multiqc = before_multiqc,
+    after_multiqc = after_multiqc,
     mapping_quality = mapping_quality,
     mapping_depth = mapping_depth,
     allele_frequency = allele_frequency,
@@ -53,5 +57,6 @@ rmarkdown::render(
     cluster_table = cluster_table,
     snp_cutoff = snp_cutoff,
     trans_cutoff = trans_cutoff
-  )
+  ),
+  quiet = T
 )

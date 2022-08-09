@@ -3,39 +3,48 @@
 # MANDATORY PARAMS
 
 # path to FASTA file of reference genome
-# default = workflow/resources/exclusion/pangenomeMTB_consensus.fasta
+# default = workflow/resources/pangenomeMTB_consensus.fasta
 # genome_file: /path/to/reference_genome.fasta
+genome_file: workflow/resources/pangenomeMTB_consensus.fasta
 
 # path to BED file of reference genome gaps
-# default = workflow/resources/exclusion/pangenomeMTB_genome_gaps.bed
+# default = workflow/resources/pangenomeMTB_genome_gaps.bed
 # genomegaps_file: /path/to/reference_genome_gaps.bed
+genomegaps_file: workflow/resources/pangenomeMTB_genome_gaps.bed
 
 # path to BED file of excluded reference genome locations regarding to the PE/PPE, PE-PGRS and drug-resistance associated genes
 # default = workflow/resources/exclusion/pangenomeMTB_excluded_loci.bed
 # exclude_regions_file: /path/to/reference_genome_excluded_loci.bed
+exclude_regions_file: workflow/resources/exclusion/pangenomeMTB_excluded_loci.bed
 
 # kraken v1 reference database.
 # MiniKraken DB is suggested (https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz).
-# kraken_db: /path/to/kraken_db
+# kraken_db: /path/to/minikraken_20171019_8GB
+kraken_db: minikraken_20171019_8GB
 
 # path to Text file including all samples information. One sample per line.
 # The line should start with the "sample" column and contain at least a "date" column.
 # For transmission network reconstruction, both "longitude" and "latitude" columns could be used.
 # metadata_file: /path/to/samples.txt
+metadata_file: examples/samples.txt
 
 # PARAMS WITH DEFAULT VALUES
 
 # path to directory with fastq files
 # default 'fastq' in working directory
 # fastqdir: /path/to/fastq/
+fastqdir: fastq
 
 # fastq files are assumed to be of the format sample_1.fastq.gz
 # use "fastqpostfix" for different file name formats 
-# e.g. for the format sample_R1.fastq.gz put 
-# fastqpostfix: R
+# e.g. for the format sample_R1.fastq.gz put fastqpostfix: R
+
+# The ids of all fastq files in the directory can be matched with glob patterns. Otherwise, only ids in the metadata file will be parsed.
+# default = false
+glob_files: false
 
 # threads used by tools for each sample
-sample_threads: 2
+sample_threads: 1
 
 ## Filter params
 # minimum allele frequency to be considered 'homozygous' variant call
@@ -59,19 +68,24 @@ flash_overlap: 10
 # default = 50
 trimmomatic_read_minimum_length: 50
 
-# quality for sliding window trimmomatic trimming
+# quality for sliding window trimmomatic trimming. default value is 15 according to Trimmomatic manual.
 # default = 15
-#trimmomatic_qual_slidingwindow: 
+# trimmomatic_qual_slidingwindow: 
+trimmomatic_qual_slidingwindow: 15
 
-# cutoff for MTBC sequences percentage.
-kraken_cutoff: 80
+# cutoff for MTBC sequences percentage. 
+kraken_cutoff: 90
 
-# use "trimmomatic_adapter_file" to change adapter file
-# default set to NexteraPE-PE adapters
-# trimmomatic_adapter_file:
+# filtering out non-MTBC reads with kraken. That would allow for contaminated samples to still be reliably processed.
+# Default is false
+MTBC_reads_only: false
 
 # output files prefix
-output_prefix: "MTB_samples"
+output_prefix: MTB_samples
+
+# fontsize for all rownames and colnames
+# default is null then the pipeline will auto adjust font size in pheatmap.
+heatmap_font_size: null
 
 # transmission clustering method. Both [SNP] and [trans] methods are supported.
 # default = trans
@@ -81,8 +95,8 @@ method: SNP
 # agglomerative single-linkage clustering is valid based on similarity but not in the context of epidemiological transmission analysis
 # if check_transmission_validity is true, merging of distant samples by a "proxy" sample is detected and excluded.
 # clustering is repeated without those "proxy" samples until no such samples are detected any more.
-# default = False
-check_transmission_validity: True
+# default = true
+check_transmission_validity: true
 
 # parameters for SNP-based clustering: SNP threshold
 # default = 12
@@ -93,15 +107,15 @@ snp_threshold: 12
 transmission_threshold: 15
 
 # clock rate. 
-# default = 1.0 SNPs/genome/year
-clock_rate: 1.0
+# default = 0.5 SNPs/genome/year
+clock_rate: 0.5
 
 # transmission rate is the rate at which the estimated number of intermediate transmissions must be.
 # default = 2.0
 transmission_rate: 2.0
 
 # using coordinate to reconstruct transmission network.
-coordinate: True
+coordinate: true
 
 # epidemiological characteristics
-characteristics: age gender group
+characteristics: 

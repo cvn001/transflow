@@ -16,7 +16,7 @@ rule fasta_dict:
     threads:
         SAMPLE_THREADS
     shell:
-        "picard -XX:ParallelGCThreads={threads} CreateSequenceDictionary R={input} O={output}"
+        "picard -XX:ParallelGCThreads={threads} CreateSequenceDictionary R={input} O={output} QUIET=true VERBOSITY=ERROR"
 
 
 rule bam_index:

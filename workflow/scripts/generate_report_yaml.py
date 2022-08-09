@@ -1,3 +1,4 @@
+from ast import arg
 import os
 import sys
 import yaml
@@ -38,21 +39,26 @@ def generate_params():
     files.append(kraken)
     qc_dir = os.path.join(input_dir, '1.Quality_control')
     seq_qc_dir = os.path.join(qc_dir, 'Sequence_QC')
-    seq_multiqc = '../../1.Quality_control/Sequence_QC/MultiQC_report.html'
-    p_dict['seq_multiqc'] = seq_multiqc
-    files.append(os.path.join(seq_qc_dir, 'MultiQC_report.html'))
+    before_seq_qc_dir = os.path.join(seq_qc_dir, 'Before_trimming')
+    after_seq_qc_dir = os.path.join(seq_qc_dir, 'After_trimming')
+    seq_before_multiqc = '../../1.Quality_control/Sequence_QC/Before_trimming/MultiQC_report.html'
+    seq_after_multiqc = '../../1.Quality_control/Sequence_QC/After_trimming/MultiQC_report.html'
+    p_dict['seq_before_multiqc'] = seq_before_multiqc
+    p_dict['seq_after_multiqc'] = seq_after_multiqc
+    files.append(os.path.join(before_seq_qc_dir, 'MultiQC_report.html'))
+    files.append(os.path.join(after_seq_qc_dir, 'MultiQC_report.html'))
     bam_qc_dir = os.path.join(qc_dir, 'Alignment_QC')
     bam_multiqc = '../../1.Quality_control/Alignment_QC/MultiQC_report.html'
     p_dict['bam_multiqc'] = bam_multiqc
     files.append(os.path.join(bam_qc_dir, 'MultiQC_report.html'))
     dist_dir = os.path.join(input_dir, '4.SNP_distance')
-    snp_diff_matrix = os.path.join(dist_dir, 'samples_pairwise_distance_matrix.txt')
+    snp_diff_matrix = os.path.join(dist_dir, '{}_pairwise_distance_matrix.txt'.format(prefix))
     p_dict['snp_diff_matrix'] = snp_diff_matrix
     files.append(snp_diff_matrix)
-    snp_diff_heatmap = os.path.join(dist_dir, 'samples_pairwise_distance_heatmap.png')
+    snp_diff_heatmap = os.path.join(dist_dir, '{}_pairwise_distance_heatmap.png'.format(prefix))
     p_dict['snp_diff_heatmap'] = snp_diff_heatmap
     files.append(snp_diff_heatmap)
-    snp_diff_histogram = os.path.join(dist_dir, 'samples_pairwise_distance_distribution.png')
+    snp_diff_histogram = os.path.join(dist_dir, '{}_pairwise_distance_distribution.png'.format(prefix))
     p_dict['snp_diff_histogram'] = snp_diff_histogram
     files.append(snp_diff_histogram)
     result_dir = os.path.join(input_dir, '5.Transmission_cluster')
@@ -89,6 +95,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-a", dest="a", help="result directory", required=True)
     parser.add_argument("-b", dest="b", help="kraken cutoff", required=True)
+    parser.add_argument("-m", dest="m", help="non-MTBC reads filtering", required=True)
     parser.add_argument("-c", dest="c", help="mapping quality threshold", required=True)
     parser.add_argument("-d", dest="d", help="allele frequency threshold", required=True)
     parser.add_argument("-e", dest="e", help="depth threshold", required=True)
@@ -96,12 +103,15 @@ if __name__ == '__main__':
     parser.add_argument("-g", dest="g", help="SNP threshold", required=True)
     parser.add_argument("-i", dest="i", help="transmission threshold", required=True)
     parser.add_argument("-j", dest="j", help="clustering directory", required=True)
+    parser.add_argument("-p", dest="p", help="prefix of output file", required=True)
     args = parser.parse_args()
-    print('Generating parameters for R markdown report.')
+    # print('Generating parameters for R markdown report.')
     p_dict = defaultdict()
     input_dir = args.a
     kraken_cutoff = args.b
     p_dict['kraken_cutoff'] = kraken_cutoff
+    mtbc_only = args.m
+    p_dict['mtbc_only'] = mtbc_only
     mapping_quality = args.c
     p_dict['mapping_quality'] = mapping_quality
     allele_frequency = args.d
@@ -115,6 +125,8 @@ if __name__ == '__main__':
     p_dict['snp_cutoff'] = snp_cutoff
     trans_cutoff = args.i
     p_dict['trans_cutoff'] = trans_cutoff
+    prefix = args.p
+    p_dict['prefix'] = prefix
     generate_params()
     output_dir = os.path.join(input_dir, '7.Summary_report')
     os.makedirs(output_dir, exist_ok=True)

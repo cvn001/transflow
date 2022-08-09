@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="EAWruZUE_qWZ3CnmqtOu" name="Page-1">
-        <mxGraphModel dx="717" dy="545" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="733" dy="545" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -55,7 +55,7 @@
                 <mxCell id="32" value="" style="edgeStyle=none;html=1;comic=0;fontSize=11;fontFamily=Arial;" parent="1" source="19" target="21" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="19" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;reads classification&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;comic=0;fontFamily=Arial;" parent="1" vertex="1">
+                <mxCell id="19" value="&lt;font style=&quot;font-size: 11px&quot;&gt;non-MTBC reads filtering&lt;br style=&quot;font-size: 11px&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;comic=0;fontFamily=Arial;" parent="1" vertex="1">
                     <mxGeometry x="210" y="140" width="110" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="33" value="" style="edgeStyle=none;html=1;comic=0;fontSize=11;fontFamily=Arial;" parent="1" source="21" target="23" edge="1">
@@ -112,7 +112,7 @@
                 <mxCell id="68" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;3&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#d5e8d4;strokeColor=#82b366;comic=0;fontFamily=Arial;" parent="1" vertex="1">
                     <mxGeometry x="360" y="405" width="20" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="69" value="MTBC filtering" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;" parent="1" vertex="1">
+                <mxCell id="69" value="non-MTBC filtering" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;" parent="1" vertex="1">
                     <mxGeometry x="387" y="375" width="140" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="71" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;4&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#f8cecc;strokeColor=#b85450;comic=0;fontFamily=Arial;" parent="1" vertex="1">

@@ -35,6 +35,7 @@ rule transmission_network:
         "python3 {SCRIPTS}run_transmission_detection.py --cluster {input.it} --distance {input.im} --network {NETWORK} "
         "--output {params.output_dir} --date {META_DATA_FILE} --coord {COORDINATE} --method trans 2> {log}"
 
+
 rule clustering_plot:
     input:
         rules.transmission_network.output.tc

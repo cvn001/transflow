@@ -18,5 +18,4 @@ rule risk_factor_testing:
     log:
         expand("6.Risk_factor/{output}/risk_factor_testing.log", output=METHOD_DIR)
     shell:
-        "Rscript --vanilla {SCRIPTS}transmission_risk_factor.R -k {META_DATA_FILE} -c {input.a}"
-        " -l {CHARACTERS} -o {params.workdir} 2> {log}"
+        "Rscript --vanilla {SCRIPTS}transmission_risk_factor.R -k {META_DATA_FILE} -c {input.a} -l {CHARACTERS} -o {params.workdir} 2> {log}"

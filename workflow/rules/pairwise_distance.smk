@@ -1,4 +1,4 @@
-rule getinfo:
+rule get_info:
     input:
          snp = "3.SNP_calling",
          gaps = GENOMEGAPSFILE,
@@ -13,13 +13,13 @@ rule getinfo:
 
 rule distance:
     input:
-        dist = rules.getinfo.output
+        dist = rules.get_info.output
     output:
         dist_matrix = expand("4.SNP_distance/{outfilename}_pairwise_distance_matrix.txt", outfilename=OUTFILENAME),
         snp_table = expand("4.SNP_distance/{outfilename}_snp_matrix.txt", outfilename=OUTFILENAME),
-        pair_count = temp(expand("4.SNP_distance/samples_pairwise_count.txt", outfilename=OUTFILENAME)),
+        pair_count = temp(expand("4.SNP_distance/{outfilename}_pairwise_count.txt", outfilename=OUTFILENAME)),
     params:
-        prefix = "samples",
+        prefix = OUTFILENAME,
         exclude = check_exclude,
         output = "4.SNP_distance"
     log:
@@ -38,12 +38,13 @@ rule distance_visualization:
         p3 = expand("4.SNP_distance/{outfilename}_pairwise_distance_heatmap.pdf", outfilename=OUTFILENAME),
         p4 = expand("4.SNP_distance/{outfilename}_pairwise_distance_heatmap.png", outfilename=OUTFILENAME)
     params:
-        prefix = "samples",
+        prefix = OUTFILENAME,
         output = "4.SNP_distance",
         show_rownames = "True",
-        show_colnames = "True"
+        show_colnames = "True",
+        font_size = HEATMAP_FONT_SIZE,
     log:
         "4.SNP_distance/visualization.log"
     shell:
         "Rscript --vanilla {SCRIPTS}distance_visualization.R {input} {params.output} {params.show_colnames} "
-        "{params.show_rownames} {params.prefix} 2> {log}"
+        "{params.show_rownames} {params.prefix} {params.font_size} 2> {log}"

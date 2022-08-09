@@ -19,7 +19,7 @@ genomegaps_f <- args$genomegaps_f
 
 genomeinfo <- read.table(faidx_f, header = F, sep = "\t", stringsAsFactors = F)
 if (nrow(genomeinfo) > 1) {
-   stop("Found more than one line in Fasta index file. Unfortunately PANPASCO does not work with more than one sequence per fasta file.")
+   stop("Found more than one line in Fasta index file. Unfortunately PANPASCO does not work with more than one sequence per fasta file.") # nolint
 }
 
 genome <- sub(pattern = "\\.fai$", replacement = "", basename(faidx_f))

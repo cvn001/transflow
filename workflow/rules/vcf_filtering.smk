@@ -1,4 +1,4 @@
-############### vcf filtering
+################### vcf filtering ####################
 
 rule split_vars:
     input:
