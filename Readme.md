@@ -254,8 +254,6 @@ During the refine step, where samples that deviate more than 4 interquartile ran
 
 This is the `kernel.pid_max` limit. To solve this error, please refer to this [link](https://serverfault.com/questions/662992/java-on-linux-insufficient-memory-even-though-there-is-plenty-of-available-memor). To check and tuning the limit: [link](https://www.cyberciti.biz/tips/howto-linux-increase-pid-limits.html)
 
-+ **To be added...**
-
 ### Unlocking
 
 After the workflow was killed (Snakemake didn’t shutdown), the workflow directory will be still locked. If you are sure, that snakemake is no longer running `(ps aux | grep snake)`.
