@@ -2,7 +2,7 @@
 
 ## 🧉 Introduction
 
-TransFlow is a modular, flexible and user-friendly tuberculosis (TB) transmission analysis workflow based on whole genome sequencing (WGS) of *Mycobacterium tuberculosis* complex (MTBC). It should be noted that this workflow is specially designed for the TB transmission analysis. For other researches, like MTBC strain typing or drug-resistance predicting, please refer to other state-of-the-art tools, such as [SAM-TB](http://samtb.szmbzx.com), [TB-profiler](https://tbdr.lshtm.ac.uk/) and [Mykrobe](https://www.mykrobe.com/).
+TransFlow is a modular, flexible and user-friendly tuberculosis (TB) transmission analysis workflow based on whole genome sequencing (WGS) of *Mycobacterium tuberculosis* complex (MTBC). It should be noted that this workflow is specially designed for the TB transmission analysis. For other researches, like MTBC strain typing or drug-resistance prediction, please refer to other state-of-the-art tools, such as [SAM-TB](http://samtb.uni-medica.com), [TB-profiler](https://tbdr.lshtm.ac.uk/) and [Mykrobe](https://www.mykrobe.com/).
 
 The workflow filters non-MTBC samples using Kraken, then preforms quality control (QC) using both FastQC and MultiQC. After that, it uses the PANPASCO workflow to do pan-genome mapping and relative pairwise SNP distance calculation for transmission analysis. Next, it infers transmission clusters and networks using transcluster and SeqTrack, separately. Finally, it detects risk factors that significantly associate with transmission clustering.
 
@@ -244,12 +244,9 @@ For contacting the developer and issue reports please go to [Issues](https://git
 There are a few steps where sequences can be removed:
 
 During the filter step:
-Samples that are included in the exclude file are removed
-Samples that fail the current filtering criteria, as defined in the parameters.yaml file, are removed. You can modify the snakefile as desired, but currently these are:
-Minimum sequence length of 25kb
-No ambiguity in (sample collection) date
-Samples may be randomly removed during subsampling; see :doc:`../guides/workflow-config-file` for more info.
-During the refine step, where samples that deviate more than 4 interquartile ranges from the root-to-tip vs time are removed
+
+1. Samples that fail the current MTBC filtering criteria, as defined in the configfile.yaml file, are removed. You can modify the threshold as desired.
+2. No ambiguity in (sample collection) date.
 
 + **Java on Linux insufficient memory even though there is plenty of available memory being used for caching**
 

@@ -54,7 +54,8 @@ meta_data <- subset(meta_data, meta_data$sample %in% samples$sample)
 new_order <- sapply(samples$sample, function(x, df) {which(df$sample == x)}, df = meta_data)
 meta_data <- meta_data[new_order,]
 D <- distance[samples$sample, samples$sample]
-dates <- as.Date(meta_data$date)
+# Convert four digit year values to class Date, "2007" to "2007-01-01"
+dates <- as.Date(ISOdate(meta_data$date, 1, 1))
 distmat <- as.matrix(D)
 cases <- meta_data$sample
 # run seqtrack function
@@ -95,7 +96,7 @@ dir.create(cyto_dir, showWarnings = F)
 network_file <- file.path(cyto_dir, 'network.txt')
 write.table(dat, file = network_file, sep = '\t', quote = F, row.names = F)
 res$sample <- row.names(res)
-d <- merge(res[, c('sample', 'id', 'date')], meta_data, by = 'sample')
+d <- merge(res[, c('sample', 'id')], meta_data, by = 'sample')
 if (use_coord) {
   node <- d[,c('id', 'sample', 'date', 'longitude', 'latitude')]
 } else {

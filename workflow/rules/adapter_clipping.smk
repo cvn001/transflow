@@ -28,7 +28,10 @@ rule adapter_clip:
         html = "temp/adapt_clip/{smp}/{smp}_fastp.html"
     threads:
         SAMPLE_THREADS
+    params:
+        q = MIN_QUAL,
+        l = READ_MIN_LEN
     log:
         "temp/adapt_clip/{smp}/adapter_clip.log"
     shell:
-        "fastp --detect_adapter_for_pe -w {threads} -i {input.fq1} -I {input.fq2} -o {output.fq1} -O {output.fq2} -j {output.json} -h {output.html} 2> {log}"
+        "fastp --detect_adapter_for_pe -w {threads} -i {input.fq1} -I {input.fq2} -o {output.fq1} -O {output.fq2} -j {output.json} -h {output.html} -q {params.q} -l {params.l} 2> {log}"

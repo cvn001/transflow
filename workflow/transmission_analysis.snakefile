@@ -93,3 +93,11 @@ rule all:
 include: "rules/pairwise_distance.smk"
 include: "rules/transmission_detection.smk"
 include: "rules/risk_factor.smk"
+
+print('Transmission detection method: [{}]'.format(METHOD))
+if METHOD == 'trans':
+    print('Clock rate: [{} SNPs/genome/year]'.format(LAMBDA))
+    print('Transmission rate: [{}]'.format(BETA))
+    print('Transmission threshold: [{}]'.format(CUTOFF))
+else:
+    print('SNP threshold: [{}]'.format(CUTOFF))

@@ -47,8 +47,12 @@ glob_files: false
 sample_threads: 1
 
 ## Filter params
-# the quality value that a base is qualified. Default 15 means phred quality >=Q15 is qualified.
-base_quality: 15
+# the quality value that a base is qualified. Default 20 means phred quality >=Q20 is qualified.
+base_quality: 20
+
+# minimum length of reads to be kept with trimmomatic
+# default = 50
+read_minimum_length: 50
 
 # minimum allele frequency to be considered 'homozygous' variant call
 # default = 0.75
@@ -66,15 +70,6 @@ depth_threshold: 10
 # minimum overlap of paired end reads for merging
 # default = 10
 flash_overlap: 10
-
-# minimum length of reads to be kept with trimmomatic
-# default = 50
-trimmomatic_read_minimum_length: 50
-
-# quality for sliding window trimmomatic trimming. default value is 15 according to Trimmomatic manual.
-# default = 15
-# trimmomatic_qual_slidingwindow: 
-trimmomatic_qual_slidingwindow: 15
 
 # cutoff for MTBC sequences percentage. 
 kraken_cutoff: 90

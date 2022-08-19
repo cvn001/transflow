@@ -28,8 +28,8 @@ if MTBC_READS_ONLY:
     print('[*] Only MTBC reads will be kept for following steps\n')
     
 # Trimmomatic parameters
-MIN_QUAL = config.get("trimmomatic_qual_slidingwindow", 15)
-READ_MIN_LEN = config.get("trimmomatic_read_minimum_length", 50)
+MIN_QUAL = config.get("base_quality", 20)
+READ_MIN_LEN = config.get("read_minimum_length", 35)
 
 # Flash parameters
 FLASH_OVERLAP = config.get("flash_overlap", 10)
