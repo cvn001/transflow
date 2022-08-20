@@ -129,7 +129,7 @@ To filter out samples that may have been contaminated by foreign DNA during samp
 To overcome the potential contamination, non-MTBC reads were filtered out from Fastq datasets while reads classified as MTBC were extracted using Seqtk.
 ```
 
-<center>**Table 1 MTBC identification results**</center>
+<center>**Table 1. MTBC identification results**</center>
 
 ```{r echo=FALSE, message=FALSE}
 kraken <- read.table(
@@ -190,7 +190,7 @@ The Genome Analysis Toolkit (GATK) is used for variant detection. First, confide
 
 The PANPASCO method is used to calculate relative pairwise SNP distance between all samples. SNPs in repeat-rich genes were not used for distance calculations as studies have shown that variants found in these regions are often false positives.
 
-<center>**Table 2 Pairwise SNP-distance matrix**</center>
+<center>**Table 2. Pairwise SNP-distance matrix**</center>
 
 ```{r echo=FALSE, message=FALSE}
 snp_dist <- read.table(
@@ -250,7 +250,7 @@ For the transmission-based method, transmission clusters among the all samples w
 Rather than using SNP distance thresholds alone to define clusters, this method takes into account the elapsed time between cases and an estimated transmission rate in combination with SNP distances to estimate the number of intermediate transmissions between cases. The transmission threshold is the threshold under which the estimated number of intermediate transmissions must be in order for two cases to be defined as clustered. The transmission rate is the rate at which intermediate cases occur in the total time elapsed between the most recent common ancestor of two sampled hosts and sampling events.
 ```
 
-<center>**Table 3 Transmission clustering result**</center>
+<center>**Table 3. Transmission clustering result**</center>
 
 ```{r echo=FALSE, message=FALSE}
 snp_dist <- read.table(
@@ -326,7 +326,7 @@ To infer risk factors for transmission of MTB infection, a univariate logistic r
 - P-values less than 0.05 are bold - Variable labels are bold.
 
 <br>
-<center>**Table 4 Univariable analysis of tranmission risk factors**</center>
+<center>**Table 4. Univariable analysis of tranmission risk factors**</center>
 <br>
 ```
 
