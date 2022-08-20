@@ -331,8 +331,8 @@ To infer risk factors for transmission of MTB infection, a univariate logistic r
 ```
 
 ```{r echo=FALSE, message=FALSE}
-df <- read.table(params$risk_file, header = T, sep = "\t", check.names = F) # nolint
 if (params$show_risk) {
+  df <- read.table(params$risk_file, header = T, sep = "\t", check.names = F) # nolint
   df %>%
   tbl_uvregression(
     method = glm,

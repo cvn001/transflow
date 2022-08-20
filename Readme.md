@@ -128,7 +128,7 @@ To run the complete workflow do the following:
   + A row for each sample
   + The following columns for each row:
     + (A) `sample` (id of each sample) \[Required\]
-    + (B) `date` (collection date of each sample) \[Optional\]
+    + (B) `date` (collection date of each sample) \[Required\]
     + (C) `latitude` (latitude of each sample) \[Optional\]
     + (D) `longitude` (longitude of each sample) \[Optional\]
     + (...) (Other epidemiological characters of each sample for risk factor inference) \[Optional\]
