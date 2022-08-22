@@ -115,7 +115,7 @@ devtools::install_github("JamesStimson/transcluster")
 
 ### Download MiniKraken database
 
-A pre-built 8 GB Kraken database [MiniKraken DB_8GB](https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz) for Kraken V1 is the suggested reference database for TransFlow. It is constructed from complete bacterial, archaeal, and viral genomes in RefSeq. According to the website, the latest version of MniKraken is **10/19/2017**.
+A pre-built 8 GB Kraken database [MiniKraken DB_8GB](https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz) for Kraken V1 is the suggested reference database for TransFlow. It is constructed from complete bacterial, archaeal, and viral genomes in RefSeq. According to the website, the latest version of MniKraken is 10/19/2017.
 
 ---
 
@@ -214,7 +214,7 @@ These parameters are set in the configuration files. Please read them carefully 
 | `base_quality` | the quality value that a base is qualified | 15 | default 15 means phred quality >=Q15 is qualified |
 | `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
 | `mapping_quality_threshold` | Minimum Mapping Quality for reads to be used with GATK HaplotypeCaller | 10 |  |
-| `depth_threshold` | Minimum coverage depth for high-quality regions | 5 | Allowing the comparison of more low coverage regions |
+| `depth_threshold` | Minimum coverage depth for high-quality regions | 5 | Keeping more low coverage regions for pairwise comparison |
 | `flash_overlap` | Number of overlapping basepairs of paired reads for `FLASH` to merge reads | 10 |  |
 | `trimmomatic_read_minimum_length` | Minimum length of reads to be kept after trimming | 50 |  |
 | `trimmomatic_qual_slidingwindow` | Minimum quality in sliding window in trimming | 15 |  |
