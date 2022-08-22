@@ -175,7 +175,7 @@ snakemake transmission_analysis.snakefile --configfile config/configfile.yaml -j
 ### 4. Generating summary report
 
 ```bash
-snakemake generating_report.snakemake --configfile config/configfile.yaml -j 4
+snakemake report_generating.snakemake --configfile config/configfile.yaml -j 4
 ```
 
 ---
