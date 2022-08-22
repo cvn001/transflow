@@ -143,7 +143,7 @@ To run the complete workflow do the following:
 
 ### Example
 
-We provide an example dataset including 10 artificial samples (S1 to S10) with WGS and epidemiological data (age, gender, drug resistance) in `example` directory.
+For testing the whole workflow, we provide an example dataset including 10 artificial samples (S1 to S10) with WGS and epidemiological data (age, gender, drug resistance) in `example` directory.
 
 After setting up the configure file in `config` directory, you can run whole pipeline in just one command using `4` threads:
 
@@ -204,8 +204,8 @@ These parameters are set in the configuration files. Please read them carefully 
 | :------ | :---------- | :----- | :---------- |
 | `genome_file` | Reference genome file | *provided in this repository* | User can generate this using [seq-seq-pan](https://gitlab.com/rki_bioinformatics/seq-seq-pan) |
 | `genomegaps_file` | File in .bed format with gaps in WGA of pan-genome | *provided in this repository* | For more details refer to [seq-seq-pan](https://gitlab.com/rki_bioinformatics/seq-seq-pan) |
-| `exclude_regions_file` | File in .bed format with positions that should be excluded from distance analysis | - | It includes positions regarding to drug-resistance associated genes or repetitive regions of reference pan-genome (e.g. PPE/PE-PGRS family genes, phage sequence, insertion or mobile genetic elements). SNPs in these regions will be excluded for pairwise distance calculation |
-| `metadata_file` | File with list of samples with one ID per line | *provided in this repository* | Missing values will be omitted |
+| `exclude_regions_file` | File in .bed format with positions that should be excluded from distance analysis | *provided in this repository* | It includes positions regarding to drug-resistance associated genes or repetitive regions of reference pan-genome (e.g. PPE/PE-PGRS family genes, phage sequence, insertion or mobile genetic elements). SNPs in these regions will be excluded for pairwise distance calculation |
+| `metadata_file` | File with list of samples with one ID per line | - | Missing values will be omitted |
 | `fastqdir` | Directory with .fastq.gz files named `ID_1.fastq.gz`, `ID_2.fastq.gz` | fastq | Only support Illumina PE seq data |
 | `fastqpostfix` | Specification of fastq.gz format; e.g. for the format sample_R1.fastq.gz put `fastqpostfix: R` | - | Don't mix different postfixes |
 | `glob_files` | [`true` or `false`], `true`: the workflow will load all fastq files in the input directory and parse all the sample names. `false`: the workflow will only read the fastq files of the samples in the metadata file. | false | |
