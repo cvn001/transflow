@@ -21,7 +21,7 @@ The workflow filters non-MTBC samples using Kraken, then preforms quality contro
 + **Raw reads**: Currently, `TransFlow` supports paired-end WGS reads only from Illumina sequencing systems, such as Illumina Miseq platform in 301bp paired-end format (`*_1.fastq.gz`, `*_2.fastq.gz` file).
 + **Metadata**: Data that provide information about epidemiological characteristics of each sample. For example, age, gender and geographical coordinate of each patient, and lineage, drug resistance of each strain (tab-delimited `.txt` file).
 
-**Note**: For transmission network inference, the collection dates of all samples are required. The `risk factor analysis` module solely relies on the epidemiological feature data provided by the user in the metadata file, the columns of which correspond to feature names, and the user can decide which feature would be analyzed in the config parameter. Missing data is allowed in the feature input, and these missing values ​​are ignored during the test.
+**Note**: For transmission network inference, the collection dates of all samples are required. The dates should be formatted as `year-month-day` format, e.g. `"YYYY-MM-DD"`, `"YYYY/MM/DD"`, `"YYYY-MM"`, `"YYYY/MM"` or `"YYYY"`. The `risk factor analysis` module solely relies on the epidemiological feature data provided by the user in the metadata file, the columns of which correspond to feature names, and the user can decide which feature would be analyzed in the config parameter. Missing data is allowed in the feature input, and these missing values ​​are ignored during the test.
 
 ### Output directories
 
@@ -143,20 +143,17 @@ To run the complete workflow do the following:
 
 ### Example
 
-We provide an example dataset including WGS and corresponding epidemiological data which is publicly hosted at Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6345888.svg)](https://doi.org/10.5281/zenodo.6345888).
+We provide an example dataset including 10 samples with WGS and epidemiological data in `example` directory.
 
-Further information is provided in the database section below.
-
-```bash
-wget https://zenodo.org/record/6345888/files/example_data.zip
-unzip example_data.zip
-```
-
-Run whole pipeline in just one command:
+After setting up the configure file in `config` directory, you can run whole pipeline in just one command using `4` threads:
 
 ```bash
 bash transflow.sh --configfile config/configfile.yaml -j 4
 ```
+
+The result summary report is also included in the `example` directory.
+
+### Snakemake parameters
 
 | Short Option | Long Option | Explanation |
 | :------ | :------ | :---------- |
@@ -217,7 +214,7 @@ These parameters are set in the configuration files. Please read them carefully 
 | `base_quality` | the quality value that a base is qualified | 15 | default 15 means phred quality >=Q15 is qualified |
 | `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
 | `mapping_quality_threshold` | Minimum Mapping Quality for reads to be used with GATK HaplotypeCaller | 10 |  |
-| `depth_threshold` | Minimum coverage depth for high-quality regions | 5 |  |
+| `depth_threshold` | Minimum coverage depth for high-quality regions | 5 | Allowing the comparison of more low coverage regions |
 | `flash_overlap` | Number of overlapping basepairs of paired reads for `FLASH` to merge reads | 10 |  |
 | `trimmomatic_read_minimum_length` | Minimum length of reads to be kept after trimming | 50 |  |
 | `trimmomatic_qual_slidingwindow` | Minimum quality in sliding window in trimming | 15 |  |
@@ -239,7 +236,7 @@ These parameters are set in the configuration files. Please read them carefully 
 
 For contacting the developer and issue reports please go to [Issues](https://github.com/cvn001/transflow/issues).
 
-+ **Some samples are not in the transmission results**
+#### Some samples are not in the transmission results
 
 There are a few steps where sequences can be removed:
 
@@ -248,7 +245,7 @@ During the filter step:
 1. Samples that fail the current MTBC filtering criteria, as defined in the configfile.yaml file, are removed. You can modify the threshold as desired.
 2. No ambiguity in (sample collection) date.
 
-+ **Java on Linux insufficient memory even though there is plenty of available memory being used for caching**
+#### Java on Linux insufficient memory even though there is plenty of available memory being used for caching
 
 This is the `kernel.pid_max` limit. To solve this error, please refer to this [link](https://serverfault.com/questions/662992/java-on-linux-insufficient-memory-even-though-there-is-plenty-of-available-memor). To check and tuning the limit: [link](https://www.cyberciti.biz/tips/howto-linux-increase-pid-limits.html)
 

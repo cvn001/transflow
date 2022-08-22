@@ -35,7 +35,7 @@ else:
             sample = "{smp}",
             overlap = FLASH_OVERLAP,
             outdir = "temp/merged/{smp}",
-            max_overlap = lambda wildcards: read_length_from_name(wildcards)
+            max_overlap = lambda wildcards: read_length_from_name(wildcards, MTBC_READS_ONLY)
         threads:
             SAMPLE_THREADS
         log:

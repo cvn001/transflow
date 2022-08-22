@@ -15,11 +15,12 @@ genomegaps_file: workflow/resources/pangenomeMTB_genome_gaps.bed
 # path to BED file of excluded reference genome locations regarding to the PE/PPE, PE-PGRS and drug-resistance associated genes
 # default = workflow/resources/exclusion/pangenomeMTB_excluded_loci.bed
 # exclude_regions_file: /path/to/reference_genome_excluded_loci.bed
-exclude_regions_file: workflow/resources/exclusion/pangenomeMTB_excluded_loci.bed
+exclude_regions_file: workflow/resources/pangenomeMTB_excluded_loci.bed
 
 # kraken v1 reference database.
 # MiniKraken DB is suggested (https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_8GB.tgz).
 # kraken_db: /path/to/minikraken_20171019_8GB
+# kraken_db: minikraken_20171019_8GB
 kraken_db: minikraken_20171019_8GB
 
 # path to Text file including all samples information. One sample per line.
@@ -33,7 +34,7 @@ metadata_file: examples/samples.txt
 # path to directory with fastq files
 # default 'fastq' in working directory
 # fastqdir: /path/to/fastq/
-fastqdir: fastq
+fastqdir: examples/fastq
 
 # fastq files are assumed to be of the format sample_1.fastq.gz
 # use "fastqpostfix" for different file name formats 
@@ -48,7 +49,7 @@ sample_threads: 1
 
 ## Filter params
 # the quality value that a base is qualified. Default 20 means phred quality >=Q20 is qualified.
-base_quality: 20
+base_quality: 15
 
 # minimum length of reads to be kept with trimmomatic
 # default = 50
@@ -63,8 +64,8 @@ allele_frequency_threshold: 0.75
 mapping_quality_threshold: 10
 
 # minimum GATK depth (DP) value to be considered valid variant call
-# default = 10
-depth_threshold: 10
+# default = 5
+depth_threshold: 5
 
 ## Tool params
 # minimum overlap of paired end reads for merging
@@ -106,14 +107,14 @@ transmission_threshold: 15
 
 # clock rate. 
 # default = 0.5 SNPs/genome/year
-clock_rate: 0.5
+clock_rate: 0.7
 
 # transmission rate is the rate at which the estimated number of intermediate transmissions must be.
 # default = 2.0
-transmission_rate: 2.0
+transmission_rate: 1.2
 
 # using coordinate to reconstruct transmission network.
 coordinate: true
 
 # epidemiological characteristics
-characteristics: 
+characteristics: gender age drug_resistance

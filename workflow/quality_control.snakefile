@@ -26,7 +26,7 @@ KRAKEN_FILTER = config.get("kraken_cutoff", 50)
 MTBC_READS_ONLY = config.get("MTBC_reads_only", True)
 if MTBC_READS_ONLY:
     print('[*] Only MTBC reads will be kept for following steps\n')
-    
+
 # Trimmomatic parameters
 MIN_QUAL = config.get("base_quality", 20)
 READ_MIN_LEN = config.get("read_minimum_length", 35)

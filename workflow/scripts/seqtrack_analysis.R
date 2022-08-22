@@ -3,6 +3,7 @@ suppressWarnings(suppressMessages(require(GGally)))
 suppressWarnings(suppressMessages(require(ggplot2)))
 suppressWarnings(suppressMessages(require(adegenet)))
 suppressWarnings(suppressMessages(require(gridExtra)))
+suppressWarnings(suppressMessages(require(lubridate)))
 
 rm(list = ls())
 parser <- ArgumentParser(description = 'Using SeqTrack to infer the transmission network.')
@@ -55,9 +56,12 @@ new_order <- sapply(samples$sample, function(x, df) {which(df$sample == x)}, df 
 meta_data <- meta_data[new_order,]
 D <- distance[samples$sample, samples$sample]
 # Convert four digit year values to class Date, "2007" to "2007-01-01"
-dates <- as.Date(ISOdate(meta_data$date, 1, 1))
+
+# dates <- as.Date(ISOdate(meta_data$date, 1, 1))
+dates <- parse_date_time(meta_data$date, c('ymd', 'ym', 'y'))
 distmat <- as.matrix(D)
 cases <- meta_data$sample
+
 # run seqtrack function
 if (use_prox) {
   xy <- cbind(meta_data$longitude, meta_data$latitude)
@@ -69,6 +73,7 @@ if (use_prox) {
 }
 new_res <- data.frame('sample' = rownames(res), res)
 annotate_table <- new_res[, c('id', 'sample', 'date')]
+
 width <- c(2, 1)
 size <- 5
 if (use_prox) {
@@ -80,8 +85,7 @@ if (use_prox) {
 }
 annotate_table <- annotate_table[order(annotate_table$id), , drop = F]
 res.file <- paste0(output_dir, '/', 'seqtrack_result.txt')
-write.table(data.frame('sample' = rownames(res), res), file = res.file, 
-            sep = '\t', quote = F, row.names = F, na = '')
+write.table(data.frame('sample' = rownames(res), res), file = res.file, sep = '\t', quote = F, row.names = F, na = '')
 from.old <- res$ances
 to.old <- res$id
 weight <- res$weight
@@ -96,7 +100,8 @@ dir.create(cyto_dir, showWarnings = F)
 network_file <- file.path(cyto_dir, 'network.txt')
 write.table(dat, file = network_file, sep = '\t', quote = F, row.names = F)
 res$sample <- row.names(res)
-d <- merge(res[, c('sample', 'id')], meta_data, by = 'sample')
+
+d <- merge(res[, c('sample', 'id', 'date')], meta_data, by = 'sample')
 if (use_coord) {
   node <- d[,c('id', 'sample', 'date', 'longitude', 'latitude')]
 } else {
@@ -104,6 +109,7 @@ if (use_coord) {
 }
 node_file <- file.path(cyto_dir, 'node.txt')
 write.table(node, file = node_file, sep = '\t', quote = F, row.names = F)
+
 # Draw transmission network using ggnet2
 dat$weight <- round(dat$weight, digits = 0)
 net <- try(network::network(dat), silent = TRUE)
