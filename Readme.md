@@ -153,7 +153,7 @@ bash transflow.sh --configfile config/configfile.yaml -j 4
 
 The result summary report is also included in the `example` directory.
 
-### Snakemake parameters
+### Useful snakemake parameters
 
 | Short Option | Long Option | Explanation |
 | :------ | :------ | :---------- |

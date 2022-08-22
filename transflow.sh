@@ -3,7 +3,7 @@
 #####################################################################################################################
 
 display_help() {
-    echo "TransFlow - NGS Alignment and SNP Calling pipeline for MTB transmission detection (powered by Snakemake)"
+    echo "TransFlow - a snakemake pipeline for WGS based MTB transmission detection"
     echo ""
         echo "Usage: bash transflow.sh --configfile configfile.txt [Snakemake options]"
         echo
@@ -14,7 +14,9 @@ display_help() {
         echo "    -j N,   --jobs N              use at most N cores in parallel"
         echo "    --ri,   --rerun-incomplete    re-run all jobs the output of which is recognized as incomplete"
         echo "    -q,     --quiet               do not output certain information"
+        echo "            --cleanup-shadow      Cleanup old shadow directories which have not been deleted due to failures or power loss"
         echo "            --verbose             print detailed stack traces and detailed operations"
+        echo "            --nocolor             Do not use a colored output"
     echo
         echo " Full list of parameters:"
     echo "   --help                 show Snakemake help (or snakemake -h)"
