@@ -42,11 +42,11 @@ The workflow filters non-MTBC samples using Kraken, then preforms quality contro
 
 All dependencies are list on `workflow/envs/transflow.yaml` and can be automatically downloaded and installed with `conda` as below, otherwise you must have these in your PATH.
 
-+ softwares: `snakemake` (v6.6.0+), `fastqc` (v0.11.9+), `multiqc` (v1.11+), `qualimap` (v2.2.2d+), `samtools` (v1.12+), `gatk` (v3.8), `picard` (v2.18+), `bedtools` (v 2.27+), `flash` (v1.2.11+), `seqtk` (v1.3+), `fastp` (v0.23+), `trimmomatic` (v0.36+), `bwa` (v0.7.17), `tabix` (v1.11+), `pandoc` (v2.16+), `phantomjs` (v2.1.1+),  `kraken` (v1.1.1)
-+ `python` (version 3.6+)
-  + Packages: `numpy`, `matplotlib`, `pandas`, `biopython`
-+ `R` (version 4.0+)
-  + Packages: `argparse`, `ggpubr`, `ggplot2`, `devtools`, `ggally`, `lubridate`, `adegenet`, `network`, `pheatmap`, `gridextra`, `sna`, `scales`, `ggsci`, `yaml`, `kableextra`, `data.table`, `dt`, `ggsummary`, `tidyverse`, `genomicranges`, `transcluster`
++ softwares: snakemake (v6.6.0+), fastqc (v0.11.9+), multiqc (v1.11+), qualimap (v2.2.2d+), samtools (v1.12+), gatk (v3.8), picard (v2.18+), bedtools (v 2.27+), flash (v1.2.11+), seqtk (v1.3+), fastp (v0.23+), trimmomatic (v0.36+), bwa (v0.7.17), tabix (v1.11+), pandoc (v2.16+), phantomjs (v2.1.1+), kraken (v1.1.1)
++ Python (v3.6+)
+  + Packages: numpy, matplotlib, pandas, biopython
++ R (v4.0+)
+  + Packages: argparse, ggpubr, ggplot2, devtools, ggally, lubridate, adegenet, network, pheatmap, gridextra, sna, scales, ggsci, yaml, kableextra, data.table, dt, ggsummary, tidyverse, genomicranges, transcluster
 
 **Note**: Version 3.8 of GATK is needed, as some functionalities of GATK3 were not ported to GATK4 yet.
 
