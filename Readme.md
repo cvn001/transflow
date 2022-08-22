@@ -196,12 +196,11 @@ These parameters are set in the configuration files. Please read them carefully 
 | `kraken_cutoff` | Threshold of MTBC reads percentage | 90 | This value is aim at filtering highly contaminated samples |
 | `MTBC_reads_only` | Filter out only MTBC reads | false | This would allow for slightly contaminated samples to still be reliably processed |
 | `base_quality` | the quality value that a base is qualified | 15 | default 15 means phred quality >=Q15 is qualified |
-| `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
-| `mapping_quality_threshold` | Minimum mapping quality for reads to be used with GATK HaplotypeCaller | 10 |  |
-| `depth_threshold` | Minimum coverage depth for high-quality regions | 5 | Keeping more low coverage regions for pairwise comparison |
+| `read_minimum_length` | Minimum length of reads to be kept after trimming | 50 |  |
 | `flash_overlap` | Number of overlapping base pairs of paired reads for `FLASH` to merge reads | 10 |  |
-| `trimmomatic_read_minimum_length` | Minimum length of reads to be kept after trimming | 50 |  |
-| `trimmomatic_qual_slidingwindow` | Minimum quality in sliding window in trimming | 15 |  |
+| `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
+| `mapping_quality_threshold` | Minimum mapping quality for reads to be used with GATK HaplotypeCaller | 10 | Keeping more low quality regions for pairwise comparison |
+| `depth_threshold` | Minimum coverage depth for high-quality regions | 5 | Keeping more low coverage regions for pairwise comparison |
 | `output_prefix` | Prefix for all distance files | all_samples | Using the project name is suggested for benefiting your management |
 | `method` | Transmission clustering method [`SNP` or `trans`] | trans | You can try both methods by setting each separately |
 | `snp_threshold` | SNP distance threshold for transmission clustering | 12 | Initially, a maximum distance of 12 SNPs between MTB isolates was introduced to rule in a possible epidemiological link between TB cases |
