@@ -143,7 +143,7 @@ To run the complete workflow do the following:
 
 ### Example
 
-We provide an example dataset including 10 samples with WGS and epidemiological data in `example` directory.
+We provide an example dataset including 10 artificial samples (S1 to S10) with WGS and epidemiological data (age, gender, drug resistance) in `example` directory.
 
 After setting up the configure file in `config` directory, you can run whole pipeline in just one command using `4` threads:
 
@@ -247,7 +247,7 @@ During the filter step:
 
 #### Java on Linux insufficient memory even though there is plenty of available memory being used for caching
 
-This is the `kernel.pid_max` limit. To solve this error, please refer to this [link](https://serverfault.com/questions/662992/java-on-linux-insufficient-memory-even-though-there-is-plenty-of-available-memor). To check and tuning the limit: [link](https://www.cyberciti.biz/tips/howto-linux-increase-pid-limits.html)
+This is due to the `kernel.pid_max` limit of the OS. To solve this error, please refer to this [link](https://serverfault.com/questions/662992/java-on-linux-insufficient-memory-even-though-there-is-plenty-of-available-memor). To check and tuning the limit: [link](https://www.cyberciti.biz/tips/howto-linux-increase-pid-limits.html)
 
 ### Unlocking
 
