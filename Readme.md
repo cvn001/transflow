@@ -143,7 +143,7 @@ To run the complete workflow do the following:
 
 ### Example
 
-For testing the whole workflow, we provide an example dataset including 10 artificial samples (S1 to S10) with WGS and epidemiological data (age, gender, drug resistance) in `example` directory.
+For testing the whole workflow, we provide an example dataset including 10 artificial samples (S1 to S10) with paired-end WGS and epidemiological data (age, gender, drug resistance) in `example` directory.
 
 After setting up the configure file in `config` directory, you can run whole pipeline in just one command using `4` threads:
 
@@ -213,9 +213,9 @@ These parameters are set in the configuration files. Please read them carefully 
 | `MTBC_reads_only` | Filter out only MTBC reads | false | This would allow for slightly contaminated samples to still be reliably processed |
 | `base_quality` | the quality value that a base is qualified | 15 | default 15 means phred quality >=Q15 is qualified |
 | `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
-| `mapping_quality_threshold` | Minimum Mapping Quality for reads to be used with GATK HaplotypeCaller | 10 |  |
+| `mapping_quality_threshold` | Minimum mapping quality for reads to be used with GATK HaplotypeCaller | 10 |  |
 | `depth_threshold` | Minimum coverage depth for high-quality regions | 5 | Keeping more low coverage regions for pairwise comparison |
-| `flash_overlap` | Number of overlapping basepairs of paired reads for `FLASH` to merge reads | 10 |  |
+| `flash_overlap` | Number of overlapping base pairs of paired reads for `FLASH` to merge reads | 10 |  |
 | `trimmomatic_read_minimum_length` | Minimum length of reads to be kept after trimming | 50 |  |
 | `trimmomatic_qual_slidingwindow` | Minimum quality in sliding window in trimming | 15 |  |
 | `output_prefix` | Prefix for all distance files | all_samples | Using the project name is suggested for benefiting your management |
