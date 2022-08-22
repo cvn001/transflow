@@ -42,23 +42,7 @@ The workflow filters non-MTBC samples using Kraken, then preforms quality contro
 
 All dependencies are list on `workflow/envs/transflow.yaml` and can be automatically downloaded and installed with `conda` as below, otherwise you must have these in your PATH.
 
-+ `snakemake` (version 6.6.0+)
-+ `fastqc` (version 0.11.9+)
-+ `multiqc` (version 1.11+)
-+ `qualimap` (version 2.2.2d+)
-+ `samtools` (version 1.12+)
-+ `gatk` (version 3.8)
-+ `picard` (version 2.18+)
-+ `bedtools` (version 2.27+)
-+ `flash` (version 1.2.11+)
-+ `seqtk` (version 1.3+)
-+ `fastp` (version 0.23+)
-+ `trimmomatic` (version 0.36+)
-+ `bwa` (version 0.7.17)
-+ `tabix` (version 1.11+)
-+ `pandoc` (version 2.16+)
-+ `phantomjs` (version 2.1.1+)
-+ `kraken` (version 1.1.1)
++ softwares: `snakemake` (v6.6.0+), `fastqc` (v0.11.9+), `multiqc` (v1.11+), `qualimap` (v2.2.2d+), `samtools` (v1.12+), `gatk` (v3.8), `picard` (v2.18+), `bedtools` (v 2.27+), `flash` (v1.2.11+), `seqtk` (v1.3+), `fastp` (v0.23+), `trimmomatic` (v0.36+), `bwa` (v0.7.17), `tabix` (v1.11+), `pandoc` (v2.16+), `phantomjs` (v2.1.1+),  `kraken` (v1.1.1)
 + `python` (version 3.6+)
   + Packages: `numpy`, `matplotlib`, `pandas`, `biopython`
 + `R` (version 4.0+)
