@@ -208,8 +208,8 @@ These parameters are set in the configuration files. Please read them carefully 
 | `metadata_file` | File with list of samples with one ID per line | - | Missing values will be omitted |
 | `fastqdir` | Directory with .fastq.gz files named `ID_1.fastq.gz`, `ID_2.fastq.gz` | fastq | Only support Illumina PE seq data |
 | `fastqpostfix` | Specification of fastq.gz format; e.g. for the format sample_R1.fastq.gz put `fastqpostfix: R` | - | Don't mix different postfixes |
-| `glob_files` | [`true` or `false`], `true`: the workflow will load all fastq files in the input directory and parse all the sample names. `false`: the workflow will only read the fastq files of the samples in the metadata file. | false | |
-| `kraken_cutoff` | Threshold of MTBC reads percentage | 80 | This value can be changed according to  |
+| `glob_files` | [`true` or `false`], `true`: the workflow will load all fastq files in the input directory and parse all the sample names. `false`: the workflow will only read the fastq files of the samples in the metadata file | false | |
+| `kraken_cutoff` | Threshold of MTBC reads percentage | 90 | This value is aim at filtering highly contaminated samples |
 | `MTBC_reads_only` | Filter out only MTBC reads | false | This would allow for slightly contaminated samples to still be reliably processed |
 | `base_quality` | the quality value that a base is qualified | 15 | default 15 means phred quality >=Q15 is qualified |
 | `allele_frequency_threshold` | Allele frequency threshold for definition of high-quality SNPs | 0.75 |  |
