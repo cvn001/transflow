@@ -180,7 +180,7 @@ snakemake generating_report.snakemake --configfile config/configfile.yaml -j 4
 
 ---
 
-## 🏗️ Parameters
+## 🏗️ Parameters in the configure file
 
 These parameters are set in the configuration files. Please read them carefully before using TransFlow.
 
