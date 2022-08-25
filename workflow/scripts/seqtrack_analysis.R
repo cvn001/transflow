@@ -20,7 +20,7 @@ input_sample <- args$sample
 output_dir <- args$output_dir
 input_meta <- args$meta
 use_coord <- args$coord
-
+R
 set.seed(12345)
 
 meta_data <- read.table(input_meta, header = T, sep = '\t', stringsAsFactors = F, check.names = F)
@@ -101,11 +101,10 @@ network_file <- file.path(cyto_dir, 'network.txt')
 write.table(dat, file = network_file, sep = '\t', quote = F, row.names = F)
 res$sample <- row.names(res)
 
-d <- merge(res[, c('sample', 'id', 'date')], meta_data, by = 'sample')
 if (use_coord) {
-  node <- d[,c('id', 'sample', 'date', 'longitude', 'latitude')]
+  node <- merge(res[, c('sample', 'id', 'date')], meta_data[, c('sample', 'longitude', 'latitude')])
 } else {
-  node <- d[,c('id', 'sample', 'date')]
+  node <- res[, c('sample', 'id', 'date')]
 }
 node_file <- file.path(cyto_dir, 'node.txt')
 write.table(node, file = node_file, sep = '\t', quote = F, row.names = F)

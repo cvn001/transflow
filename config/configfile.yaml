@@ -90,13 +90,6 @@ heatmap_font_size: null
 # default = trans
 method: SNP
 
-# parameters for SNP-based clustering: check transmission validity.
-# agglomerative single-linkage clustering is valid based on similarity but not in the context of epidemiological transmission analysis
-# if check_transmission_validity is true, merging of distant samples by a "proxy" sample is detected and excluded.
-# clustering is repeated without those "proxy" samples until no such samples are detected any more.
-# default = true
-check_transmission_validity: true
-
 # parameters for SNP-based clustering: SNP threshold
 # default = 12
 snp_threshold: 12
