@@ -213,7 +213,7 @@ These parameters are set in the configuration files. Please read them carefully 
 
 ---
 
-## 📲 Troubleshoot common issues
+## 📲 Troubleshoot
 
 ### Common issues
 
