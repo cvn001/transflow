@@ -27,7 +27,7 @@ SCRIPTS = srcdir("scripts/")
 # Load Reference genome, default is a pre-built pan-genome
 REF_GENOME = RESOURCE + 'reference/pangenomeMTB_consensus.fasta'
 GENOME_FILE = config.get("genome_file", REF_GENOME)
-print('Reference genome: {}'.format(GENOME_FILE))
+
 GENOME_FDIR = os.path.dirname(GENOME_FILE)
 GENOME = os.path.splitext(os.path.basename(GENOME_FILE))[0]
 
