@@ -85,6 +85,10 @@ This will create a conda environment containing all dependencies for Snakemake i
 
 **Note**: It is advised to use [mamba](https://github.com/mamba-org/mamba) to speed up your conda installs.
 
+```bash
+mamba env create -f workflows/envs/transflow.yaml
+```
+
 ### Activate the environment
 
 ```bash
