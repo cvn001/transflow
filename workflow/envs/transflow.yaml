@@ -5,7 +5,7 @@ channels:
 dependencies:
  - pandas
  - fastqc
- - multiqc
+ - multiqc=1.11
  - qualimap
  - biopython
  - gatk=3.8
