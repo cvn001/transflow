@@ -78,7 +78,7 @@ git clone git@github.com:cvn001/transflow.git
 After cloning this repository to a folder of your choice, it is recommended to create a general transflow conda environment with the accompanying `workflow/envs/transflow.yaml`. In the main folder of the cloned repository, execute the following command:
 
 ```bash
-conda env create -f workflows/envs/transflow.yaml
+conda env create -f workflow/envs/transflow.yaml
 ```
 
 This will create a conda environment containing all dependencies for Snakemake itself.
