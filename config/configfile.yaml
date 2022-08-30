@@ -27,14 +27,14 @@ kraken_db: minikraken_20171019_8GB
 # The line should start with the "sample" column and contain at least a "date" column.
 # For transmission network reconstruction, both "longitude" and "latitude" columns could be used.
 # metadata_file: /path/to/samples.txt
-metadata_file: examples/samples.txt
+metadata_file: example/samples.txt
 
 # PARAMS WITH DEFAULT VALUES
 
 # path to directory with fastq files
 # default 'fastq' in working directory
 # fastqdir: /path/to/fastq/
-fastqdir: examples/fastq
+fastqdir: example/fastq
 
 # fastq files are assumed to be of the format sample_1.fastq.gz
 # use "fastqpostfix" for different file name formats 
@@ -110,4 +110,4 @@ transmission_rate: 1.2
 coordinate: true
 
 # epidemiological characteristics
-characteristics: gender age drug_resistance
+characteristics: gender age previous_treatment
