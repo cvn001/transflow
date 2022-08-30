@@ -4,7 +4,7 @@
 
 TransFlow is a modular, flexible and user-friendly tuberculosis (TB) transmission analysis workflow based on whole genome sequencing (WGS) of *Mycobacterium tuberculosis* complex (MTBC). It should be noted that this workflow is specially designed for the TB transmission analysis. For other researches, like MTBC strain typing or drug-resistance prediction, please refer to other state-of-the-art tools, such as [SAM-TB](http://samtb.uni-medica.com), [TB-profiler](https://tbdr.lshtm.ac.uk/) and [Mykrobe](https://www.mykrobe.com/).
 
-The workflow filters non-MTBC samples using Kraken, then preforms quality control (QC) using both FastQC and MultiQC. After that, it uses the PANPASCO workflow to do pan-genome mapping and relative pairwise SNP distance calculation for transmission analysis. Next, it infers transmission clusters and networks using transcluster and SeqTrack, separately. Finally, it detects risk factors that significantly associate with transmission clustering.
+The workflow filters non-MTBC samples using Kraken, then preforms quality control (QC) using both FastQC and MultiQC. After that, it uses the PANPASCO workflow to do pan-genome mapping and relative pairwise SNP distance calculation for transmission analysis. Next, it infers transmission clusters and networks using transcluster and SeqTrack, separately. Notably, it provides two different clustering methods, one is SNP-threshold method (as default) and the other is transmission method. Finally, it detects risk factors that significantly associate with transmission clustering.
 
 ---
 
@@ -127,7 +127,7 @@ To run the complete workflow do the following:
 
 ### Example
 
-For testing the whole workflow, we provide an example dataset including 10 artificial samples (S1 to S10) with paired-end WGS and epidemiological data (age, gender, drug resistance) in `example` directory.
+For testing the whole workflow, we provide an example dataset including 10 artificial samples (S1 to S10) with paired-end WGS and epidemiological data (age, gender, previous treatment) in [example](example/) directory.
 
 After setting up the configure file in `config` directory, you can run whole pipeline in just one command using `4` threads:
 
@@ -135,7 +135,7 @@ After setting up the configure file in `config` directory, you can run whole pip
 bash transflow.sh --configfile config/configfile.yaml -j 4
 ```
 
-The result summary report is also included in the `example` directory.
+The result summary report is also included in the [example](example/summary_report.html) directory.
 
 ### Useful snakemake parameters
 
@@ -202,11 +202,11 @@ These parameters are set in the configuration files. Please read them carefully 
 | `mapping_quality_threshold` | Minimum mapping quality for reads to be used with GATK HaplotypeCaller | 10 | Keeping more low quality regions for pairwise comparison |
 | `depth_threshold` | Minimum coverage depth for high-quality regions | 5 | Keeping more low coverage regions for pairwise comparison |
 | `output_prefix` | Prefix for all distance files | all_samples | Using the project name is suggested for benefiting your management |
-| `method` | Transmission clustering method [`SNP` or `trans`] | trans | You can try both methods by setting each separately |
+| `method` | Transmission clustering method [`SNP` or `trans`] | SNP | You can try both methods by setting each separately |
 | `snp_threshold` | SNP distance threshold for transmission clustering | 12 | Initially, a maximum distance of 12 SNPs between MTB isolates was introduced to rule in a possible epidemiological link between TB cases |
-| `transmission_threshold` | The threshold for transmission clustering | 10 |  |
+| `transmission_threshold` | The threshold for transmission clustering | 15 |  |
 | `clock_rate` | Clock rate for MTBC samples (SNPs/genome/year) | 0.5 | Whilst the background SNP accumulation rate for MTB has been estimated at `0.5 SNPs/genome/year`, selection pressure and antibiotic resistance can influence this rate considerably. |
-| `transmission_rate` | The rate at which the estimated number of intermediate transmissions must be | 2.0 |  |
+| `transmission_rate` | The rate at which the estimated number of intermediate transmissions must be | 1.2 |  |
 | `coordinate` | Using sample's coordinate to improve transmission network reconstruction [`true` or `false`] | true |  |
 | `characteristics` | Epidemiological characteristics for risk factor inference | - | All characters should be separated by spaces. Leave it blank to skip this step |
 | `sample_threads` | Number of threads for each sample run | 1 |  |

@@ -29,10 +29,12 @@ snp_diff <- as.matrix(snp_diff)
 snp_diff[lower.tri(snp_diff, diag = T)] <- NA
 long_df <- na.omit(data.frame(as.table(snp_diff)))
 names(long_df) <- c("A", "B", "Distance")
-line_pos <- 50
+line_pos <- 12
 long_df$Group <- ifelse(long_df$Distance > line_pos, 'far', 'close') # nolint
 # draw histogram
-p <- gghistogram(long_df, x = "Distance", rug = T, bins = 40, ylab = "Count", fill = "white") + geom_vline(xintercept = line_pos, col = "red", linetype = "dashed") + xlab("Pairwise SNP distance") + ylab("Frequency") + theme(legend.position = "none") # nolint
+p <- gghistogram(long_df, x = "Distance", rug = T, bins = 40, ylab = "Count", fill = "white") + # nolint
+  geom_vline(xintercept = line_pos, col = "red", linetype = "dashed") + # nolint
+  xlab("Pairwise SNP distance") + ylab("Frequency") + theme(legend.position = "none") # nolint
 histogram_name <- paste0(prefix, "_pairwise_distance_distribution")
 cat("[*] Exporting histogram image.\n")
 output_histogram_pdf <- file.path(output_dir, paste0(histogram_name, ".pdf"))

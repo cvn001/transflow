@@ -20,7 +20,7 @@ input_sample <- args$sample
 output_dir <- args$output_dir
 input_meta <- args$meta
 use_coord <- args$coord
-R
+
 set.seed(12345)
 
 meta_data <- read.table(input_meta, header = T, sep = '\t', stringsAsFactors = F, check.names = F)

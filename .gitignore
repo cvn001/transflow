@@ -1,1 +1,8 @@
-.vscode/
+vscode/
+workflow/resources/pangenomeMTB_consensus.dict
+workflow/resources/pangenomeMTB_consensus.fasta.amb
+workflow/resources/pangenomeMTB_consensus.fasta.ann
+workflow/resources/pangenomeMTB_consensus.fasta.bwt
+workflow/resources/pangenomeMTB_consensus.fasta.fai
+workflow/resources/pangenomeMTB_consensus.fasta.pac
+workflow/resources/pangenomeMTB_consensus.fasta.sa

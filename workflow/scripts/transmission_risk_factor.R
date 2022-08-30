@@ -87,7 +87,7 @@ tbl <- select_data %>%
   bold_labels() %>%
   modify_table_body(
     ~ .x %>%
-      dplyr::mutate(u_event = n_obs - n_event) %>%  # nolint # nolint
+      dplyr::mutate(u_event = n_obs - n_event) %>%  # nolint 
       dplyr::relocate(c(n_event, u_event), .before = estimate)
   ) %>%
   # assigning header labels

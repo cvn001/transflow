@@ -100,10 +100,10 @@ transmission_threshold: 15
 
 # clock rate. 
 # default = 0.5 SNPs/genome/year
-clock_rate: 0.7
+clock_rate: 0.5
 
 # transmission rate is the rate at which the estimated number of intermediate transmissions must be.
-# default = 2.0
+# default = 1.2
 transmission_rate: 1.2
 
 # using coordinate to reconstruct transmission network.
