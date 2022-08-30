@@ -3,6 +3,7 @@ suppressWarnings(suppressMessages(library(tidyverse)))
 suppressWarnings(suppressMessages(library(argparse)))
 suppressWarnings(suppressMessages(library(tibble)))
 suppressWarnings(suppressMessages(library(ggpubr)))
+suppressWarnings(suppressMessages(library(webshot)))
 
 rm(list = ls())
 

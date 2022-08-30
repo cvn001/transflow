@@ -42,6 +42,9 @@ dependencies:
  - r-kableextra
  - r-dt
  - r-data.table
- - r-gtsummary
+ - r-gtsummary=1.5.0
+ - r-gt=0.3.1
+ - r-webshot
  - r-tidyverse
+ - r-rmarkdown=2.11
  

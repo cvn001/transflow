@@ -23,9 +23,9 @@ params:
   mtbc_only: FALSE
   risk_file: "characteristic_data.txt"
 
-title: "<center>MTB Transmission Analysis</center>"
+title: "<center> MTB Transmission Analysis </center>"
 
-date: "<center>Date of Report: `r format(Sys.time(), '%Y/%m/%d')`<center>"
+date: "<center> Date of Report: `r format(Sys.time(), '%Y/%m/%d')` <center>"
 
 output:
   html_document:
