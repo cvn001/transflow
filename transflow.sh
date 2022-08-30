@@ -11,7 +11,7 @@ display_help() {
         echo "    -n,     --dryrun              do not execute anything"
         echo "    -p,     --printshellcmds      print out the shell commands that will be executed"
         echo "    -t,     --timestamp           add a timestamp to all logging output"
-        echo "    -j N,   --jobs N              use at most N cores in parallel"
+        echo "    -c N,   --cores N             use at most N cores in parallel"
         echo "    --ri,   --rerun-incomplete    re-run all jobs the output of which is recognized as incomplete"
         echo "    -q,     --quiet               do not output certain information"
         echo "            --cleanup-shadow      Cleanup old shadow directories which have not been deleted due to failures or power loss"

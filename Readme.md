@@ -134,10 +134,10 @@ To run the complete workflow do the following:
 
 For testing the whole workflow, we provide an example dataset including 10 artificial samples (S1 to S10) with paired-end WGS and epidemiological data (age, gender, previous treatment) in [example](example/) directory.
 
-After setting up the configure file in `config` directory, you can run whole pipeline in just one command using `4` threads:
+After setting up the configure file in `config` directory, you can run whole pipeline in just one command:
 
 ```bash
-bash transflow.sh --configfile config/configfile.yaml -j 4
+bash transflow.sh --configfile config/configfile.yaml --cores 4
 ```
 
 The result summary report is also included in the [example](example/summary_report.html) directory.
@@ -149,7 +149,7 @@ The result summary report is also included in the [example](example/summary_repo
 | `-k` | `--keep` | If a job fails, continue with independent jobs. |
 | `-p` | `--printshellcmds` | Print out the shell commands that will be executed. |
 | `-r` | `--reason` | Print the reason for rule execution (Missing output, updated input etc.) |
-| `-j` | `--cores` | Number of CPU cores (threads) to use for this run. With no int, it uses all. Default is 1. |
+| `-c` | `--cores` | Number of CPU cores (threads) to use for this run. With no int, it uses all. |
 | `--ri` | `--rerun-incomplete` | If Snakemake marked a file as incomplete after a crash, delete and produce it again. |
 | `-n` | `--dryrun` | Just pretend to run the workflow. A similar option is `-S` (`--summary`). |
 | `-q` | `--quiet` | Do not output certain information. If used without arguments, do not output any progress or rule information. |
@@ -162,25 +162,25 @@ The result summary report is also included in the [example](example/summary_repo
 ### 1. Data preprocessing and quality control
 
 ```bash
-snakemake quality_control.snakefile --configfile config/configfile.yaml -j 4
+snakemake quality_control.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ### 2. Reads mapping and variant calling
 
 ```bash
-snakemake variant_calling.snakefile --configfile config/configfile.yaml -j 4
+snakemake variant_calling.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ### 3. Transmission analysis
 
 ```bash
-snakemake transmission_analysis.snakefile --configfile config/configfile.yaml -j 4
+snakemake transmission_analysis.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ### 4. Generating summary report
 
 ```bash
-snakemake report_generating.snakemake --configfile config/configfile.yaml -j 4
+snakemake report_generating.snakemake --configfile config/configfile.yaml --cores 4
 ```
 
 ---
