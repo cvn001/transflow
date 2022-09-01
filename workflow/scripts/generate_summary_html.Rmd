@@ -230,7 +230,7 @@ Using a histogram plot to visualize the distribution of all pairwise SNP distanc
 knitr::include_graphics(params$snp_diff_histogram)
 ```
 <center>**Figure 2. Pairwise SNP-distance distribution**</center>
-<center><font size="1">**Note** The red vertical line one represents a treshold of 50 SNPs.</font><center><br>
+<center><font size="1">**Note** The red vertical line one represents a treshold of 12 SNPs.</font><center><br>
 
 <p class="text-left">**Result files**: [4.SNP_distance](../../4.SNP_distance)</p> <br>
 
