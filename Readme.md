@@ -6,6 +6,8 @@ TransFlow is a modular, flexible and user-friendly tuberculosis (TB) transmissio
 
 The workflow filters non-MTBC samples using Kraken, then preforms quality control (QC) using both FastQC and MultiQC. After that, it uses the PANPASCO workflow to do pan-genome mapping and relative pairwise SNP distance calculation for transmission analysis. Next, it infers transmission clusters and networks using transcluster and SeqTrack, separately. Notably, it provides two different clustering methods, one is SNP-threshold method (as default) and the other is transmission method. Finally, it detects risk factors that significantly associate with transmission clustering.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7039654.svg)](https://doi.org/10.5281/zenodo.7039654)
+
 ---
 
 ## 🐍 Workflow
