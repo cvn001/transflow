@@ -132,13 +132,14 @@ To run the complete workflow do the following:
 
 ## 🔧 Quick start
 
-### Example
-
 For testing the whole workflow, we provide an example dataset including 10 artificial samples (S1 to S10) with paired-end WGS and epidemiological data (age, gender, previous treatment) in [example](example/) directory.
+
+### Automatic usage
 
 After setting up the configure file in `config` directory, you can run whole pipeline in just one command:
 
 ```bash
+# usual command-line
 bash transflow.sh --configfile config/configfile.yaml --cores 4
 ```
 
@@ -161,7 +162,11 @@ The result summary report is also included in the [example](example/summary_repo
 
 ## 🔧 Step by step
 
+The process can also run the main modules step by step, which is convenient for users to adjust some parameters. If you want to rerun this step, just delete the specified file and execute the command again. Below is a detailed description.
+
 ### 1. Data preprocessing and quality control
+
+TransFlow starts with performing QC of the raw FASTQ files using [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Trimming is performed using the tool [fastp](https://github.com/OpenGene/fastp) and subsequently, an additional QC report is generated. A single summary QC report across all samples is presented. Besides, it is also important to filter out samples that may have been significantly contaminated by foreign DNA during sample preparation. For this purpose the pair-end reads of each sample are classified through Kraken. Users are suggested to check the QC report and MTBC reads proportion and can filter out samples with low quality or adjust appropriate MTBC filtering parameters according to these results, and then re-run this step.
 
 ```bash
 snakemake quality_control.snakefile --configfile config/configfile.yaml --cores 4
@@ -169,11 +174,15 @@ snakemake quality_control.snakefile --configfile config/configfile.yaml --cores 
 
 ### 2. Reads mapping and variant calling
 
+When the user is satisfied with the quality of the reads, the workflow proceeds to the next module: reads mapping and variant calling. The reference MTBC pangenome is provided in [resources](workflow/resources/) directory. The aligner and variant caller used in TransFlow is BWA-MEM and GATK3, respectively. All default parameters in this step is consistent with the mainstream MTB WGS researches and can be adjust in the configure file.
+
 ```bash
 snakemake variant_calling.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ### 3. Transmission analysis
+
+This module is consist of four parts: pairwise distance matrix calculation, transmission clustering, transmission network reconstruction, and risk factor inference. The workflow adopts the [PANPASCO](https://gitlab.com/rki_bioinformatics/panpasco) algorithm for pairwise SNP distance calculation. Next, TransFlow provides two different methods for transmission clustering, SNP-based (default in configure file) and transmission-based method. Users can try both methods by setting the parameter and re-run this module, respectively. Likewise, users can try different SNP or transmission thresholds in the configure file. For the clusters with more than three samples, their transmission networks will be reconstructed using SeqTrack method. Finally, TransFlow implements risk factor inference for epidemiological characteristics.
 
 ```bash
 snakemake transmission_analysis.snakefile --configfile config/configfile.yaml --cores 4
@@ -181,8 +190,10 @@ snakemake transmission_analysis.snakefile --configfile config/configfile.yaml --
 
 ### 4. Generating summary report
 
+After all of above steps, this module can be used to generate a visualization HTML report containing various tables and plots.
+
 ```bash
-snakemake report_generating.snakemake --configfile config/configfile.yaml --cores 4
+snakemake report_generating.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ---
