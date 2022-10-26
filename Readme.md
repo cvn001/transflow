@@ -166,7 +166,7 @@ The process can also run the main modules step by step, which is convenient for 
 
 ### 1. Data preprocessing and quality control
 
-TransFlow starts with performing QC of the raw FASTQ files using [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Trimming is performed using the tool [fastp](https://github.com/OpenGene/fastp) and subsequently, an additional QC report is generated. A single summary QC report across all samples is presented. Besides, it is also important to filter out samples that may have been significantly contaminated by foreign DNA during sample preparation. For this purpose the pair-end reads of each sample are classified through Kraken. Users are suggested to check the QC report and MTBC reads proportion and can filter out samples with low quality or adjust appropriate MTBC filtering parameters according to these results, and then re-run this step.
+TransFlow starts with performing QC of the raw FASTQ files using [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Trimming is performed using the tool [fastp](https://github.com/OpenGene/fastp) and subsequently, an additional QC report is generated. A single summary QC report across all samples is presented. Besides, it is also important to filter out samples that may have been significantly contaminated by foreign DNA during sample preparation. For this purpose the pair-end reads of each sample are classified through Kraken.
 
 ```bash
 snakemake quality_control.snakefile --configfile config/configfile.yaml --cores 4
