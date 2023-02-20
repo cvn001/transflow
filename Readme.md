@@ -250,6 +250,9 @@ During the filter step:
 
 This is due to the `kernel.pid_max` limit of the OS. To solve this error, please refer to this [link](https://serverfault.com/questions/662992/java-on-linux-insufficient-memory-even-though-there-is-plenty-of-available-memor). To check and tuning the limit: [link](https://www.cyberciti.biz/tips/howto-linux-increase-pid-limits.html)
 
+#### FastQC Exception in thread "Thread-1" (error)
+This means that FastQC may have run out of memory. Please try to increase the `sample_threads` parameter in the configure file. 
+
 ### Unlocking
 
 After the workflow was killed (Snakemake didn’t shutdown), the workflow directory will be still locked. If you are sure, that snakemake is no longer running `(ps aux | grep snake)`.
