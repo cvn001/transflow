@@ -31,6 +31,7 @@ samples$sample <- as.character(samples$sample)
 distance <- read.table(input_distance, sep = '\t', header = T, row.names = 1, stringsAsFactors = F, check.names = F)
 distance <- round(as.matrix(distance), 1)
 if (use_coord %in% c('true', 'True', 'TRUE', 't', 'T')) {
+  use_coord <- T
   cols <- c('sample', 'date', 'latitude', 'longitude')
   col_string <- paste(cols, collapse = ', ')
   check <- ifelse(cols %in% colnames(meta_data), 1, 0)
@@ -41,6 +42,7 @@ if (use_coord %in% c('true', 'True', 'TRUE', 't', 'T')) {
     use_prox <- T
   }
 } else {
+   use_coord <- F
   cols <- c('sample', 'date')
   col_string <- paste(cols, collapse = ', ')
   check <- ifelse(cols %in% colnames(meta_data), 1, 0)
