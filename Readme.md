@@ -169,7 +169,7 @@ The process can also run the main modules step by step, which is convenient for 
 TransFlow starts with performing QC of the raw FASTQ files using [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Trimming is performed using the tool [fastp](https://github.com/OpenGene/fastp) and subsequently, an additional QC report is generated. A single summary QC report across all samples is presented. Besides, it is also important to filter out samples that may have been significantly contaminated by foreign DNA during sample preparation. For this purpose the pair-end reads of each sample are classified through Kraken.
 
 ```bash
-snakemake quality_control.snakefile --configfile config/configfile.yaml --cores 4
+snakemake -s workflow/quality_control.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ### 2. Reads mapping and variant calling
@@ -177,7 +177,7 @@ snakemake quality_control.snakefile --configfile config/configfile.yaml --cores 
 When the user is satisfied with the quality of the reads, the workflow proceeds to the next module: reads mapping and variant calling. The reference MTBC pangenome is provided in [resources](workflow/resources/) directory. The aligner and variant caller used in TransFlow is BWA-MEM and GATK3, respectively. All default parameters in this step is consistent with the mainstream MTB WGS researches and can be adjust in the configure file.
 
 ```bash
-snakemake variant_calling.snakefile --configfile config/configfile.yaml --cores 4
+snakemake -s workflow/variant_calling.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ### 3. Transmission analysis
@@ -185,7 +185,7 @@ snakemake variant_calling.snakefile --configfile config/configfile.yaml --cores 
 This module is consist of four parts: pairwise distance matrix calculation, transmission clustering, transmission network reconstruction, and risk factor inference. The workflow adopts the [PANPASCO](https://gitlab.com/rki_bioinformatics/panpasco) algorithm for pairwise SNP distance calculation. Next, TransFlow provides two different methods for transmission clustering, SNP-based (default in configure file) and transmission-based method. Users can try both methods by setting the parameter and re-run this module, respectively. Likewise, users can try different SNP or transmission thresholds in the configure file. For the clusters with more than three samples, their transmission networks will be reconstructed using SeqTrack method. Finally, TransFlow implements risk factor inference for epidemiological characteristics.
 
 ```bash
-snakemake transmission_analysis.snakefile --configfile config/configfile.yaml --cores 4
+snakemake -s workflow/transmission_analysis.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ### 4. Generating summary report
@@ -193,7 +193,7 @@ snakemake transmission_analysis.snakefile --configfile config/configfile.yaml --
 After all of above steps, this module can be used to generate a visualization HTML report containing various tables and plots.
 
 ```bash
-snakemake report_generating.snakefile --configfile config/configfile.yaml --cores 4
+snakemake -s workflow/report_generating.snakefile --configfile config/configfile.yaml --cores 4
 ```
 
 ---
