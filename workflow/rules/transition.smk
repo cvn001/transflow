@@ -1,3 +1,4 @@
+import subprocess
 if MTBC_READS_ONLY:
     rule merge_reads:
         input:
