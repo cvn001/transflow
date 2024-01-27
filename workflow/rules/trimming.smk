@@ -14,7 +14,7 @@ rule qc_pe:
     threads:
         SAMPLE_THREADS
     shell:
-        "trimmomatic PE -quiet -threads {threads} -phred33 {input.notcomb1} {input.notcomb2} {output.p1} {output.up1} {output.p2} {output.up2} SLIDINGWINDOW:4:15 MINLEN:{READ_MIN_LEN} 2>&1 > {log}"
+        "trimmomatic PE -quiet -threads {threads} -phred33 {input.notcomb1} {input.notcomb2} {output.p1} {output.up1} {output.p2} {output.up2} SLIDINGWINDOW:4:{MIN_QUAL} MINLEN:{READ_MIN_LEN} 2>&1 > {log}"
 
 
 rule qc_se:
