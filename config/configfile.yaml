@@ -111,3 +111,6 @@ coordinate: true
 
 # epidemiological characteristics
 characteristics: gender age previous_treatment
+
+#minimum cluster size to be considered valid(number of samples in a cluster to consider it as valid)
+minimum_cluster_size: 3

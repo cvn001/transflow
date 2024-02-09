@@ -54,6 +54,8 @@ else:
 NETWORK = config.get("network_inference", True)
 # Epidemiological characteristics
 CHARACTERS = config.get("characteristics", "")
+# Minimum Cluster Size to be valid
+CLUSTER_SIZE = config.get("minimum_cluster_size",3)
 
 # Additional function
 def check_exclude(wildcards):
