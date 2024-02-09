@@ -33,7 +33,7 @@ rule transmission_network:
         expand("5.Transmission_cluster/{dir}/transmission_detection.log", dir=METHOD_DIR)
     shell:
         "python3 {SCRIPTS}run_transmission_detection.py --cluster {input.it} --distance {input.im} --network {NETWORK} "
-        "--output {params.output_dir} --date {META_DATA_FILE} --coord {COORDINATE} --method {METHOD} --xmin {CLUSTER_SIZE} 2> {log}"
+        "--output {params.output_dir} --date {META_DATA_FILE} --coord {COORDINATE} --method trans --xmin {CLUSTER_SIZE} 2> {log}"
 
 
 rule clustering_plot:

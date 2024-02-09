@@ -213,7 +213,7 @@ def main():
     use_coord = args.coord
     method = args.method
     network = args.network
-    xmin = args.xmin
+    xmin = int(args.xmin)
     all_cluster_dict, cluster_num = fetch_cluster(cluster_file, 
                                                   out_dir,
                                                   method)
