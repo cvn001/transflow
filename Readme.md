@@ -227,6 +227,7 @@ These parameters are set in the configuration files. Please read them carefully 
 | `transmission_rate` | The rate at which the estimated number of intermediate transmissions must be | 1.2 |  |
 | `coordinate` | Using sample's coordinate to improve transmission network reconstruction [`true` or `false`] | true |  |
 | `characteristics` | Epidemiological characteristics for risk factor inference | - | All characters should be separated by spaces. Leave it blank to skip this step |
+| `minimum_cluster_size` | Minimum cluster size  | 3 | Minimum number of samples in a cluster to consider as a valid cluster |
 | `sample_threads` | Number of threads for each sample run | 1 |  |
 
 ---

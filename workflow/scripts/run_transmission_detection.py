@@ -148,7 +148,7 @@ def run_seqtrack(dist_file, sample_file, date_file, output_dir, use_coord):
 
 
 def transmission_detection(all_cluster_dict, cluster_num, out_dir, dist_file,
-                           network_inference, date_file, use_coord):
+                           network_inference, date_file, use_coord, xmin):
     """
     Running transmission detection for every valid clusters (with more than 3 samples).
     :param cluster_num: detected clusters number.
@@ -157,6 +157,7 @@ def transmission_detection(all_cluster_dict, cluster_num, out_dir, dist_file,
     :param out_dir: the output directory for all transmission analyses.
     :param dist_file: the pairwise distance file from PANPASCO pipeline.
     :param date_file: the tsv format file containing all samples collection dates.
+    :param xmin: the minimum number of samples in a cluster to be considered valid cluster
     :return: None
     """
     check_lines = ''
@@ -169,7 +170,7 @@ def transmission_detection(all_cluster_dict, cluster_num, out_dir, dist_file,
         )
         i = 0
         for cluster, samples in all_cluster_dict.items():
-            if len(samples) >= 3:
+            if len(samples) >= xmin:
                 i += 1
                 print('==> Cluster {} ... '.format(cluster), end='')
                 cluster_dir = os.path.join(out_dir,
@@ -212,6 +213,7 @@ def main():
     use_coord = args.coord
     method = args.method
     network = args.network
+    xmin = int(args.xmin)
     all_cluster_dict, cluster_num = fetch_cluster(cluster_file, 
                                                   out_dir,
                                                   method)
@@ -219,7 +221,7 @@ def main():
     if network in ['TRUE', 'True', 'true', 'T', 't']:
         network_inference = True
     transmission_detection(all_cluster_dict, cluster_num, out_dir, dist_file,
-                           network_inference, date_file, use_coord)
+                           network_inference, date_file, use_coord, xmin)
 
 
 if __name__ == '__main__':
@@ -258,6 +260,11 @@ if __name__ == '__main__':
                         "--network",
                         dest="network",
                         help="Network inference.",
+                        required=True)
+    parser.add_argument("-x",
+                        "--xmin",
+                        dest="xmin",
+                        help="Minimum cluster size.",
                         required=True)
     args = parser.parse_args()
     main()
