@@ -39,7 +39,7 @@ def fetch_cluster(cluster_file, out_dir, method):
     trans_result_file = os.path.join(out_dir, 'transmission_clusters.txt')
     result_lines = 'sample\ttransmission_cluster\tclustering_type\n'
     tmp_dict = defaultdict(int)
-    if method == 'SNP':
+    if method != 'SNP':
         group_dict = defaultdict(list)
         with open(cluster_file, 'r') as f1:
             i = 0
